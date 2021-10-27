@@ -1,0 +1,11 @@
+==> 1. INFO
+
+==> 2. SET TICKET COST
+
+==> 3. SPLIT SECTORS
+
+==> 4. MARKETING
+
+==> 5. BUILD A NEW SITTING PLACES
+
+==> 0. QUIT

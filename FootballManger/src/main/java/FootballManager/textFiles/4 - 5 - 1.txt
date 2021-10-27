@@ -1,0 +1,25 @@
+Gk
+Def
+Def
+Def
+Def
+Mid
+Mid
+Mid
+Mid
+Mid
+Forw
+Gk
+Def
+Def
+Mid
+Mid
+Forw
+Forw
+Goalkeeper  ()
+     
+Defenders   ()  ()  ()  ()
+
+Midfielders ()  ()  ()  ()  ()
+
+Forward     ()

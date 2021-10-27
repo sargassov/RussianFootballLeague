@@ -1,0 +1,13 @@
+             |  N  |                     Type of revenues                         |  Amount  |
+             |-----|--------------------------------------------------------------|----------|
+             /--1--/Total Budget                                                  /          /
+             /--2--/All Players Cost                                              /          /
+             /--3--/All Stadium Tickets Cost                                      /          /
+             /--4--/Team's Sponsor                                                /          /
+             /--5--/Team's Day Wage                                               /          /
+             /--6--/Team's Match Wage                                             /          /
+             /--7--/Team's Goal Bonus                                             /          /
+             /--8--/Team's Win Bonus                                              /          /
+             /--9--/Team's Draw Bonus                                             /          /
+             /-10--/Proficit(+) Deficit(-)                                        /          /
+             ---------------------------------------------------------------------------------

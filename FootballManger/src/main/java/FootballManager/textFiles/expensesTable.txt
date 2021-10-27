@@ -1,0 +1,10 @@
+             |  N  |                     Type of expense                          |  Amount  |
+             |-----|--------------------------------------------------------------|----------|
+             /--1--/Team's Daily expenses                                         /          /
+             /--2--/Team's Weekly expenses                                        /          /
+             /--3--/Team's Monthly expenses                                       /          /
+             /--4--/Team's Transfer expenses                                      /          /
+             /--5--/Team's Personal expenses                                      /          /
+             /--6--/Team's Stadium renewed expenses                               /          /
+             /--7--/Proficit(+) Deficit(-)                                        /          /
+             ---------------------------------------------------------------------------------
