@@ -15,7 +15,7 @@ import java.util.List;
 public class ExpensesTable extends Table implements Data{
 
     private static Tournament rfpl;
-    private final String expensesTablePath = "src/textFiles/expensesTable.txt";
+    private final String expensesTablePath = "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\expensesTable.txt";
     private final static String EXPENSES_FILE_NOT_FOUND = "BANKS_FILE_NOT_FOUND";
     private List<String> expensesTableList;
     private final double delimeter = 100.0;
@@ -45,6 +45,7 @@ public class ExpensesTable extends Table implements Data{
                 Corrector.coefficient(getTransferExpense()),
                 Corrector.coefficient(getPersonalExpense()),
                 Corrector.coefficient(getStadiumExpense()),
+                Corrector.coefficient(getMarketExpenses()),
                 Corrector.coefficient(getProficitDeficit())
         };
 
@@ -71,7 +72,7 @@ public class ExpensesTable extends Table implements Data{
     }
 
     private double getStadiumExpense() {
-        return 0.0;
+        return rfpl.myTeam.stadiumExpenses;
     }
 
     private double getExpense(int coeff){
@@ -97,4 +98,6 @@ public class ExpensesTable extends Table implements Data{
     private double getPersonalExpense(){
         return rfpl.myTeam.personalExpenses;
     }
+
+    private double getMarketExpenses() {return rfpl.myTeam.marketExpenses;}
 }

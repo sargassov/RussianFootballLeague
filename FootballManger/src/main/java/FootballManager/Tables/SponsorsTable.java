@@ -17,7 +17,7 @@ public class SponsorsTable extends Table implements Data{
     private final static int HEIGHT = 23;
     private final static int WIDTH = 93;
     private Tournament rfpl;
-    private final String sponsorsTablePath = "src/textFiles/sponsorTable.txt";
+    private final String sponsorsTablePath = "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\sponsorTable.txt";
     private final static String SPONSORS_FILE_NOT_FOUND = "SPONSORS_FILE_NOT_FOUND";
     private List<String> sponsorsTableList;
 

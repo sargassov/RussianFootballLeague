@@ -5,9 +5,11 @@ import FootballManager.coaches.Coach;
 import FootballManager.coaches.Manager;
 import FootballManager.finance.Bank;
 import FootballManager.finance.Sponsor;
+import FootballManager.markets.Market;
 import FootballManager.strategies.Strategy;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Team {
@@ -30,6 +32,8 @@ public class Team {
     public double startWealth;
     public double transferExpenses;
     public double personalExpenses;
+    public double marketExpenses;
+    public double stadiumExpenses;
     public ArrayList<Player> playerList = new ArrayList<Player>();
     public Strategy strategy = new Strategy();
     public ArrayList<String> coachInterface;
@@ -38,6 +42,7 @@ public class Team {
     public boolean changeSponsor = false;
     public Tournament rfpl;
     private Random random;
+    public List<Market> markets;
 
     public Team(String info, Tournament rfpl) {
 
@@ -54,8 +59,10 @@ public class Team {
         wealth = Double.parseDouble(StringMass[5]);
         startWealth = Double.parseDouble(StringMass[5]);
 
-        transferExpenses = 0.0;
-        personalExpenses = 0.0;
+//        transferExpenses = 0.0;
+//        personalExpenses = 0.0;
+//        marketExpenses = 0.0;
+        markets = new ArrayList<>();
 
         addToSponsor();
 

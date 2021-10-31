@@ -18,7 +18,7 @@ public class BanksTable extends Table implements Data {
     private final static int HEIGHT = 23;
     private final static int WIDTH = 93;
     private Tournament rfpl;
-    private final String banksTablePath = "src/textFiles/banksTable.txt";
+    private final String banksTablePath = "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\banksTable.txt";
     private final static String BANKS_FILE_NOT_FOUND = "BANKS_FILE_NOT_FOUND";
     private List<String> banksTableList;
     private List<Bank>usefulBankList;
