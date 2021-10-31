@@ -35,7 +35,7 @@ public class CoachesMenu implements TrainingMenuOptionsInterface {
     }
 
     private void deletePlayer(Tournament rfpl){
-        if(rfpl.myTeam.coaches.size() > 1){
+        if(rfpl.myTeam.coaches.size() > 1 && onePlayerAtTraining(rfpl)){
             System.out.println("\n" + Corrector.getS(35) + "Choose a player to debar him out of training:");
             int x = 1;
             for(Coach c : rfpl.myTeam.coaches){
@@ -64,7 +64,24 @@ public class CoachesMenu implements TrainingMenuOptionsInterface {
             }
 
         }
+        else{
+            System.out.println("\n\n\t\t\tYou havent players on the training");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
+    }
+
+    private boolean onePlayerAtTraining(Tournament rfpl) {
+
+        for (Coach c : rfpl.myTeam.coaches){
+            if(c.playerOnTrain != null) return true;
+        }
+
+        return false;
     }
 
     private void addPlayer(Tournament rfpl){
@@ -207,6 +224,7 @@ public class CoachesMenu implements TrainingMenuOptionsInterface {
                         coach.name = menuString.get(cycleCount) + coach.name;
                         rfpl.myTeam.coaches.add(coach);
                         rfpl.myTeam.wealth -= costCoachCount;
+                        rfpl.myTeam.personalExpenses -= costCoachCount;
                     } else MessageClass.notEnoughMoney();
                 }
             }

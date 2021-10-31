@@ -20,6 +20,7 @@ import FootballManager.TransferMenuOptions.ToPreviousMenu;
 import FootballManager.TransferMenuOptions.TransferMenuOptionsInterface;
 import FootballManager.finance.Bank;
 import FootballManager.finance.Sponsor;
+import FootballManager.markets.Market;
 import FootballManager.strategies.Strategy;
 import FootballManager.time.Day;
 import FootballManager.time.DayMatch;
@@ -49,8 +50,8 @@ public class Tournament {
     public Interface visualCalendarInterface;
     public boolean wasAtTheYouthAcademy = false;
     public int indexOfUserTeam;
-    private static final String TRANSFER_INTERFACE = "src\\textFiles\\transfer_interface.txt";
-    private static final String VISUAL_CALENDAR_INTERFACE = "src\\textFiles\\visualCalendarInterface.txt";
+    private static final String TRANSFER_INTERFACE = "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\transfer_interface.txt";
+    private static final String VISUAL_CALENDAR_INTERFACE = "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\visualCalendarInterface.txt";
 
     public Tournament(String NameOfLeague){
         name = NameOfLeague;
@@ -61,6 +62,7 @@ public class Tournament {
         currentDate = new GregorianCalendar(2019, Calendar.AUGUST,1);
         transferPrintInterface = new Interface(TRANSFER_INTERFACE);
         visualCalendarInterface = new Interface(VISUAL_CALENDAR_INTERFACE);
+        Market.setRfpl(this);
     }
 
     private void optionConstructor() {

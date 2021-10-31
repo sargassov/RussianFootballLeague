@@ -81,7 +81,7 @@ public class Player {
         boolean is11Th = false;
         boolean isCapitan = false;
 
-        System.out.println(position);
+        //System.out.println(position);
         price = priceToSell();
 
 

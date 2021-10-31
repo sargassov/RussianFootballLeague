@@ -46,7 +46,7 @@ public class ListPlayerOption implements TeamMenuOptionsInterface {
         System.out.println("\n\n" + Corrector.getS(38) + "Counter \tName\n\n");
         int x = 0;
         for(Player player : rfpl.myTeam.playerList){
-            Corrector.getS(40);
+            //Corrector.getS(40);
             System.out.println(Corrector.getS(40) + (x + 1) + "\t\t" + player.name);
             x++;
         }
@@ -58,6 +58,8 @@ public class ListPlayerOption implements TeamMenuOptionsInterface {
 
     private static void concretePlayerViewMenu(int choise, ArrayList<Player> list){
         choise--;
+
+        System.out.println("choise = " + choise);
         System.out.print("\n\n" + Corrector.getS(40));
         Player choosen = list.get(choise);
         Corrector.wordUpperCase(list.get(choise).name);
@@ -85,8 +87,7 @@ public class ListPlayerOption implements TeamMenuOptionsInterface {
             return;
         }
         else if(anotherChoise == 1) {
-            choise --;
-            if (choise == -1) { choise = list.size();}
+            if (choise == 0) { choise = list.size();}
             concretePlayerViewMenu(choise, list);
         }
         else {
