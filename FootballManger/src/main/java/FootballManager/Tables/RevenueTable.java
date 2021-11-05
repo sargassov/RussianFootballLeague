@@ -15,7 +15,7 @@ public class RevenueTable extends Table implements Data {
     private final static int HEIGHT = 23;
     private final static int WIDTH = 93;
     private Tournament rfpl;
-    private static final String revenueTablePath = "src/textFiles/revenueTable.txt";
+    private static final String revenueTablePath = "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\revenueTable.txt";
     private List<String> revenuetableList;
     private final static String REVENUE_FILE_NOT_FOUND = "LOANS_FILE_NOT_FOUND";
 

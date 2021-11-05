@@ -5,22 +5,24 @@ import FootballManager.coaches.Coach;
 import FootballManager.coaches.Manager;
 import FootballManager.finance.Bank;
 import FootballManager.finance.Sponsor;
+import FootballManager.markets.Market;
 import FootballManager.strategies.Strategy;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Team {
     public String name;
     public String town;
     public Stadium stadium;
-    public short games = 0;
-    public short wins = 0;
-    public short draws = 0;
-    public short defeats = 0;
-    public short goalScored = 0;
-    public short goalMissed = 0;
-    public short teamPower = 0;
+    public int games = 0;
+    public int wins = 0;
+    public int draws = 0;
+    public int defeats = 0;
+    public int goalScored = 0;
+    public int goalMissed = 0;
+    public int teamPower = 0;
     public int capacityStad = 0;
     public int temporaryTicketCost = 60;
     public int regularCapacity;
@@ -30,6 +32,8 @@ public class Team {
     public double startWealth;
     public double transferExpenses;
     public double personalExpenses;
+    public double marketExpenses;
+    public double stadiumExpenses;
     public ArrayList<Player> playerList = new ArrayList<Player>();
     public Strategy strategy = new Strategy();
     public ArrayList<String> coachInterface;
@@ -38,6 +42,7 @@ public class Team {
     public boolean changeSponsor = false;
     public Tournament rfpl;
     private Random random;
+    public List<Market> markets;
 
     public Team(String info, Tournament rfpl) {
 
@@ -54,8 +59,10 @@ public class Team {
         wealth = Double.parseDouble(StringMass[5]);
         startWealth = Double.parseDouble(StringMass[5]);
 
-        transferExpenses = 0.0;
-        personalExpenses = 0.0;
+//        transferExpenses = 0.0;
+//        personalExpenses = 0.0;
+//        marketExpenses = 0.0;
+        markets = new ArrayList<>();
 
         addToSponsor();
 
@@ -103,5 +110,9 @@ public class Team {
         }
 
         return new String(toReturn);
+    }
+
+    public int getPoints(){
+        return wins * 3 + draws;
     }
 }

@@ -9,6 +9,9 @@ import FootballManager.FinanceMenuOptions.ExpensesOption;
 import FootballManager.FinanceMenuOptions.FinanceMenuOptionsInterface;
 import FootballManager.FinanceMenuOptions.RevenueOption;
 import FootballManager.GameMenuInterfaces.*;
+import FootballManager.LeagueMenuOptions.LeagueMenuOptionsInterface;
+import FootballManager.LeagueMenuOptions.LeagueTableOption;
+import FootballManager.LeagueMenuOptions.ResultsTableOption;
 import FootballManager.StadiumMenuOptions.*;
 import FootballManager.TeamMenuOptions.*;
 import FootballManager.TrainingMenuOptions.CoachesMenu;
@@ -20,6 +23,7 @@ import FootballManager.TransferMenuOptions.ToPreviousMenu;
 import FootballManager.TransferMenuOptions.TransferMenuOptionsInterface;
 import FootballManager.finance.Bank;
 import FootballManager.finance.Sponsor;
+import FootballManager.markets.Market;
 import FootballManager.strategies.Strategy;
 import FootballManager.time.Day;
 import FootballManager.time.DayMatch;
@@ -29,6 +33,7 @@ import java.util.*;
 public class Tournament {
     public String name;
     public Team[] teams;
+    public String[][] resultsMass;
     public ArrayList<Player> youthPool;
     public ArrayList<Bank>banks;
     public ArrayList<Sponsor>sponsorList;
@@ -41,26 +46,31 @@ public class Tournament {
     public ArrayList<CalendarMenuOptionsInterface> calendarMenuOptionsInterfaces;
     public ArrayList<FinanceMenuOptionsInterface> financeMenuOptionsInterfaces;
     public ArrayList<StadiumMenuOptionInterface> stadiumMenuOptionInterfaces;
+    public ArrayList<LeagueMenuOptionsInterface> leagueMenuOptionsInterfaces;
     public Team myTeam = null;
     public List<Strategy> strategies;
     public List<Interface>interfaces;
     public Calendar currentDate;
+    public Calendar startDate;
     public Interface transferPrintInterface;
     public Interface visualCalendarInterface;
     public boolean wasAtTheYouthAcademy = false;
     public int indexOfUserTeam;
-    private static final String TRANSFER_INTERFACE = "src\\textFiles\\transfer_interface.txt";
-    private static final String VISUAL_CALENDAR_INTERFACE = "src\\textFiles\\visualCalendarInterface.txt";
+    private static final String TRANSFER_INTERFACE = "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\transfer_interface.txt";
+    private static final String VISUAL_CALENDAR_INTERFACE = "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\visualCalendarInterface.txt";
 
     public Tournament(String NameOfLeague){
         name = NameOfLeague;
         teams = new Team[16];
+        //resultsMass = new String[16][16];
         strategies = null;
         optionConstructor();
         interfaces = null;
         currentDate = new GregorianCalendar(2019, Calendar.AUGUST,1);
+        startDate = (Calendar) currentDate.clone();
         transferPrintInterface = new Interface(TRANSFER_INTERFACE);
         visualCalendarInterface = new Interface(VISUAL_CALENDAR_INTERFACE);
+        Market.setRfpl(this);
     }
 
     private void optionConstructor() {
@@ -73,6 +83,15 @@ public class Tournament {
         calendarMenuInterfacesConstructor();
         financeMenuInterfacesConstructor();
         stadiumMenuInterfacesConstructor();
+        leagueMenuInterfaceConstructor();
+    }
+
+    private void leagueMenuInterfaceConstructor() {
+        leagueMenuOptionsInterfaces = new ArrayList<>(Arrays.asList(
+                new FootballManager.LeagueMenuOptions.ToPreviousMenu(),
+                new LeagueTableOption(),
+                new ResultsTableOption()
+        ));
     }
 
     private void stadiumMenuInterfacesConstructor() {

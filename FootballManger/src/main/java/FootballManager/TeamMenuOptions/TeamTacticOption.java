@@ -72,9 +72,9 @@ public class TeamTacticOption implements TeamMenuOptionsInterface {
                 }
                 currentPlayerInTeam++;
             }
-            System.out.println("\nEnter a count number to edi" +
+            System.out.println("\nEnter a count number to edit" +
                     "t a " + allReplacement.position + ": ");
-            int count = Corrector.inputNumberFromTheList(numbersToChoose);
+            int count = Corrector.inputNumberFromTheList(numbersToChoose, true);
             rfpl.myTeam.playerList.get(count).strategyPlace = (int)currentPosition;
             if (currentPosition < 11) {
                 rfpl.myTeam.teamPower += rfpl.myTeam.playerList.get(count).power;
