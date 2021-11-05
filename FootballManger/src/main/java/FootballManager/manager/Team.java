@@ -16,13 +16,13 @@ public class Team {
     public String name;
     public String town;
     public Stadium stadium;
-    public short games = 0;
-    public short wins = 0;
-    public short draws = 0;
-    public short defeats = 0;
-    public short goalScored = 0;
-    public short goalMissed = 0;
-    public short teamPower = 0;
+    public int games = 0;
+    public int wins = 0;
+    public int draws = 0;
+    public int defeats = 0;
+    public int goalScored = 0;
+    public int goalMissed = 0;
+    public int teamPower = 0;
     public int capacityStad = 0;
     public int temporaryTicketCost = 60;
     public int regularCapacity;
@@ -110,5 +110,9 @@ public class Team {
         }
 
         return new String(toReturn);
+    }
+
+    public int getPoints(){
+        return wins * 3 + draws;
     }
 }

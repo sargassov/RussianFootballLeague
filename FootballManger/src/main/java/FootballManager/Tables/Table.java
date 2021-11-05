@@ -29,18 +29,6 @@ public class Table {
             Corrector.getS(sVal) + "To take a new loan press \"2\":\n" +
             Corrector.getS(sVal) + "To return press \"0\":\n";
 
-    protected void dash(){
-        System.out.print("-");
-    }
-
-    protected void verSlash(){
-        System.out.print("|");
-    }
-
-    protected void space(){
-        System.out.println(" ");
-    }
-
     protected String massInLine(String[] mass){
 
         String returned = "";
