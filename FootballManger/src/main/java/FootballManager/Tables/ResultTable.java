@@ -53,8 +53,14 @@ public class ResultTable extends Table implements Data{
                                 mass[y] = rfpl.resultsMass[numberOfTeam][y - 2];
 
                         if(x % 3 == 1)
-                            if(rfpl.resultsMass[y - 2][numberOfTeam] != null)
-                                mass[y] = rfpl.resultsMass[y - 2][numberOfTeam];
+                            if(rfpl.resultsMass[y - 2][numberOfTeam] != null){
+                                //mass[y] = rfpl.resultsMass[y - 2][numberOfTeam];
+                                String str = rfpl.resultsMass[y - 2][numberOfTeam].trim();
+                                String changer[] = str.split(":");
+                                mass[y] = Corrector.wordToCenter(changer[1] + ":" + changer[0], mass[y].length());
+                            }
+
+
 
                     }
 

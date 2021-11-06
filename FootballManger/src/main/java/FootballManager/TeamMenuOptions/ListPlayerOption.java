@@ -20,12 +20,13 @@ public class ListPlayerOption implements TeamMenuOptionsInterface {
                     " Sort by defender ability\n==> 7. Sort by midfielder ability\n==> 8. Sort by forward ability\n==> " +
                     " 9. Sort by captain ability\n==> 10. Sort by injuries\n==> 11. Sort by time training abilities\n==> 12." +
                     " Sort by year of birth\n==> 13. Sort by position in the team\n==> 14. Sort by power\n==> 15. Sort by " +
-                    "tire\n==> 16. Sort by time before treatment\n==> 17. Sort by price\n\nPLAYER:\n\n==> 18. Player menu: ");
+                    "tire\n==> 16. Sort by time before treatment\n==> 17. Sort by price\n==> 18. Sort by club\n\nPLAYER:" +
+                    "\n\n==> 19. Player menu: ");
         }
 
-        final int finalInt = Corrector.inputIntMethod(0, 18);
+        final int finalInt = Corrector.inputIntMethod(0, 19);
         if(finalInt == 0) return;
-        else if(finalInt == 1 || finalInt == 2 || finalInt == 4) ListPlayerOptionSorts.sort(rfpl, finalInt);
+        else if(finalInt == 1 || finalInt == 2 || finalInt == 4 || finalInt == 18) ListPlayerOptionSorts.sort(rfpl, finalInt);
         else if(finalInt == 3 || finalInt == 5 || finalInt == 6 || finalInt == 7 || finalInt == 8 ||
                 finalInt == 9 || finalInt == 11 || finalInt == 12 || finalInt == 14 || finalInt == 15 || finalInt == 16)
             ListPlayerOptionSorts.sort(rfpl, finalInt, 0);

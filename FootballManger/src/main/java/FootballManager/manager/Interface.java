@@ -26,7 +26,7 @@ public class Interface {
             "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\financeMenu.txt",
             "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\stadiumInterface.txt",
             "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\LeagueInterface.txt",
-            "src\\textFiles\\TECH.txt"};
+            "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\cheatCodeInterface.txt"};
 
     public Interface(){}
 

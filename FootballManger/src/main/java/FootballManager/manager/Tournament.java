@@ -4,6 +4,8 @@ package FootballManager.manager;
 import FootballManager.CalendarMenuOptions.CalendarMenuOptionsInterface;
 import FootballManager.CalendarMenuOptions.PlayingCalendar;
 import FootballManager.CalendarMenuOptions.VisualCalendar;
+import FootballManager.CheatCodeMenuOptions.CheatCodeMenuOptionsInterface;
+import FootballManager.CheatCodeMenuOptions.RealiseCheatCodeOption;
 import FootballManager.FinanceMenuOptions.BanksOption;
 import FootballManager.FinanceMenuOptions.ExpensesOption;
 import FootballManager.FinanceMenuOptions.FinanceMenuOptionsInterface;
@@ -21,6 +23,7 @@ import FootballManager.TransferMenuOptions.BuyingPlayerOption;
 import FootballManager.TransferMenuOptions.SellPlayerOption;
 import FootballManager.TransferMenuOptions.ToPreviousMenu;
 import FootballManager.TransferMenuOptions.TransferMenuOptionsInterface;
+import FootballManager.cheats.Cheat;
 import FootballManager.finance.Bank;
 import FootballManager.finance.Sponsor;
 import FootballManager.markets.Market;
@@ -47,6 +50,7 @@ public class Tournament {
     public ArrayList<FinanceMenuOptionsInterface> financeMenuOptionsInterfaces;
     public ArrayList<StadiumMenuOptionInterface> stadiumMenuOptionInterfaces;
     public ArrayList<LeagueMenuOptionsInterface> leagueMenuOptionsInterfaces;
+    public ArrayList<CheatCodeMenuOptionsInterface> cheatCodeMenuOptionsInterfaces;
     public Team myTeam = null;
     public List<Strategy> strategies;
     public List<Interface>interfaces;
@@ -71,6 +75,7 @@ public class Tournament {
         transferPrintInterface = new Interface(TRANSFER_INTERFACE);
         visualCalendarInterface = new Interface(VISUAL_CALENDAR_INTERFACE);
         Market.setRfpl(this);
+        Cheat.setRfpl(this);
     }
 
     private void optionConstructor() {
@@ -84,6 +89,14 @@ public class Tournament {
         financeMenuInterfacesConstructor();
         stadiumMenuInterfacesConstructor();
         leagueMenuInterfaceConstructor();
+        cheatCodeInterfaceConstructor();
+    }
+
+    private void cheatCodeInterfaceConstructor() {
+        cheatCodeMenuOptionsInterfaces = new ArrayList<>(Arrays.asList(
+                new FootballManager.CheatCodeMenuOptions.ToPreviousMenu(),
+                new RealiseCheatCodeOption()
+        ));
     }
 
     private void leagueMenuInterfaceConstructor() {

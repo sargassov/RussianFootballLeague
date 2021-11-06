@@ -106,9 +106,9 @@ public class PlayingCalendar extends Table implements CalendarMenuOptionsInterfa
 //        for(DayMatch d : rfpl.shedule.get(0)){
 //            d.itWas = true;
 //            d.homeScore = y;
-//            d.awayScore = y;
+//            d.awayScore = y + 1;
 //            y++;
-//        }
+//       }
 
 
     }
