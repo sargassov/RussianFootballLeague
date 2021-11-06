@@ -72,9 +72,8 @@ public class TransferTable extends Table implements Data {
         String info = " " + player.name;
         info = Corrector.inspacer(info) + " ";
         info += player.power + Corrector.getS(4);
-        if(player.position.equals("Forw")) info += player.position + Corrector.getS(4);
-        else if(player.position.equals("Gk")) info += player.position + Corrector.getS(6);
-        else info += player.position + Corrector.getS(5);
+        info += Corrector.posInString(player.position);
+        info += Corrector.getS(8 - Corrector.posInString(player.position).length());
         info += player.price;
         info = string51Chars(info);
         return info;

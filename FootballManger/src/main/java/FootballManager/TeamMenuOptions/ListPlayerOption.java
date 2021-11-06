@@ -20,12 +20,13 @@ public class ListPlayerOption implements TeamMenuOptionsInterface {
                     " Sort by defender ability\n==> 7. Sort by midfielder ability\n==> 8. Sort by forward ability\n==> " +
                     " 9. Sort by captain ability\n==> 10. Sort by injuries\n==> 11. Sort by time training abilities\n==> 12." +
                     " Sort by year of birth\n==> 13. Sort by position in the team\n==> 14. Sort by power\n==> 15. Sort by " +
-                    "tire\n==> 16. Sort by time before treatment\n==> 17. Sort by price\n\nPLAYER:\n\n==> 18. Player menu: ");
+                    "tire\n==> 16. Sort by time before treatment\n==> 17. Sort by price\n==> 18. Sort by club\n\nPLAYER:" +
+                    "\n\n==> 19. Player menu: ");
         }
 
-        final int finalInt = Corrector.inputIntMethod(0, 18);
+        final int finalInt = Corrector.inputIntMethod(0, 19);
         if(finalInt == 0) return;
-        else if(finalInt == 1 || finalInt == 2 || finalInt == 4) ListPlayerOptionSorts.sort(rfpl, finalInt);
+        else if(finalInt == 1 || finalInt == 2 || finalInt == 4 || finalInt == 18) ListPlayerOptionSorts.sort(rfpl, finalInt);
         else if(finalInt == 3 || finalInt == 5 || finalInt == 6 || finalInt == 7 || finalInt == 8 ||
                 finalInt == 9 || finalInt == 11 || finalInt == 12 || finalInt == 14 || finalInt == 15 || finalInt == 16)
             ListPlayerOptionSorts.sort(rfpl, finalInt, 0);
@@ -46,7 +47,7 @@ public class ListPlayerOption implements TeamMenuOptionsInterface {
         System.out.println("\n\n" + Corrector.getS(38) + "Counter \tName\n\n");
         int x = 0;
         for(Player player : rfpl.myTeam.playerList){
-            Corrector.getS(40);
+            //Corrector.getS(40);
             System.out.println(Corrector.getS(40) + (x + 1) + "\t\t" + player.name);
             x++;
         }
@@ -58,6 +59,8 @@ public class ListPlayerOption implements TeamMenuOptionsInterface {
 
     private static void concretePlayerViewMenu(int choise, ArrayList<Player> list){
         choise--;
+
+        System.out.println("choise = " + choise);
         System.out.print("\n\n" + Corrector.getS(40));
         Player choosen = list.get(choise);
         Corrector.wordUpperCase(list.get(choise).name);
@@ -85,8 +88,7 @@ public class ListPlayerOption implements TeamMenuOptionsInterface {
             return;
         }
         else if(anotherChoise == 1) {
-            choise --;
-            if (choise == -1) { choise = list.size();}
+            if (choise == 0) { choise = list.size();}
             concretePlayerViewMenu(choise, list);
         }
         else {

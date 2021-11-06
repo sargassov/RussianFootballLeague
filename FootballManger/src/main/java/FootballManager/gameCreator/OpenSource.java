@@ -13,11 +13,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Phaser;
+import java.util.stream.Collectors;
 
 public class OpenSource {
 
@@ -206,6 +206,13 @@ public class OpenSource {
                         ++x;
                     }
 
+                    Arrays.sort(rfpl.teams, new Comparator<Team>() {
+                        @Override
+                        public int compare(Team o1, Team o2) {
+                            return o1.name.compareTo(o2.name);
+                        }
+                    });
+
                 } catch (IOException e) {
                     System.out.println(CLUBS_FILE_NOT_FOUND);
                     e.printStackTrace();
@@ -243,6 +250,16 @@ public class OpenSource {
                             }
                         }
                     }
+
+                    for(Team t : rfpl.teams){
+                        t.playerList.sort(new Comparator<Player>() {
+                            @Override
+                            public int compare(Player o1, Player o2) {
+                                return o1.name.compareTo(o2.name);
+                            }
+                        });
+                    }
+
                 } catch (IOException e) {
                     System.out.println(PLAYERS_FILE_NOT_FOUND);
                     e.printStackTrace();

@@ -113,6 +113,30 @@ public class Corrector {
         return number;
     }
 
+    public static int inputNumberFromTheList(ArrayList<Integer> list, boolean realCoefficient){
+        Scanner sc = new Scanner(System.in);
+        boolean isFound = false;
+        int number;
+        do {
+            while (!sc.hasNextInt()) {
+                System.out.println("\n\n\t\t\t\tYou weren't entered a number! Try again!\n\n");
+                sc.next();
+            }
+            number = sc.nextInt();
+            number--;
+            for(int s: list){
+                if(realCoefficient)  System.out.print((s + 1) + " ");
+                else System.out.println(s + " ");
+                if(number == s) {
+                    isFound = true;
+                    break;
+                }
+            }
+            if(!isFound) System.out.println("\n\n\t\t\t\tYou choosed an incorrect player! Try again!\n\n");
+        } while (!isFound);
+        return number;
+    }
+
     public static int inputIntFromTheList(ArrayList<Integer> list){
         Scanner sc = new Scanner(System.in);
         boolean isFound = false;

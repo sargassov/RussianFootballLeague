@@ -43,29 +43,29 @@ public class ListOfPlayersTable extends Table implements Data{
             String[] mass = listOfPlayersTableList.get(x).split("/");
             if(x == 1){
                 mass[1] = Corrector.wordToCenter("P L A Y E R S  " +
-                        " O F  " + rfpl.myTeam.nameOfTeamInRegister(), LINELENGTH118);
+                        " O F  " + rfpl.myTeam.nameOfTeamInRegister(), mass[1].length());
             }
             else if(x == 5){
 
                 for(int count = 0; count < rfpl.myTeam.playerList.size(); count++){
                     Player pl = rfpl.myTeam.playerList.get(count);
-                    Object[] compareObj = {count + 1, pl.name, pl.number, pl.natio,
+                    Object[] compareObj = {count + 1, pl.name, pl.club, pl.number, pl.natio,
                             Corrector.posInString(pl.position), pl.gkAble, pl.defAble, pl.midAble,
                             pl.forwAble, pl.captainAble, pl.isInjury, pl.trainingAble, pl.yearBirth,
                             pl.strategyPlace, pl.power, pl.tire, pl.timeBeforeTreat, pl.price};
 
 
-                    for(int y = 0; y < 18; y++){
-                        if(y == 1 || y == 3 || y == 4){
+                    for(int y = 0; y < 19; y++){
+                        if(y == 1 || y == 2 || y == 4 || y == 5){
                             mass[y + 1] = Corrector.wordToCenter((String) compareObj[y], mass[y + 1].length());
                         }
-                        else if(y == 10){
+                        else if(y == 11){
                             booleanIntoTable(compareObj[y], mass, y);
                         }
-                        else if(y == 13){
+                        else if(y == 14){
                             mass[y + 1] = pl.strategyPlaceInPosition();
                         }
-                        else if(y == 17){
+                        else if(y == 18){
                             mass[y + 1] = Corrector.wordToCenter("" + compareObj[y], mass[y + 1].length());
                         }
                         else  {

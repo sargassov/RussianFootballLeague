@@ -14,7 +14,7 @@ import java.util.List;
 public class SplitSectorsTable extends Table implements Data{
 
     private static Tournament rfpl;
-    private static final String splitSectorsPath = "src/textFiles/splitSectorsTable.txt";
+    private static final String splitSectorsPath = "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\splitSectorsTable.txt";
     private static final String SPLIT_SECTORS_TABLE_FILE_NOT_FOUND = "SPLIT SECTORS TABLE FILE NOT FOUND";
     private List<String> splitSectorsList;
 

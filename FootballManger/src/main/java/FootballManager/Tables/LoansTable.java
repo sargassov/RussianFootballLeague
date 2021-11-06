@@ -19,7 +19,7 @@ public class LoansTable extends Table implements Data{
     private final static int HEIGHT = 23;
     private final static int WIDTH = 93;
     private Tournament rfpl;
-    private final String loansTablePath = "src/textFiles/loansTable.txt";
+    private final String loansTablePath = "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\loansTable.txt";
     private final static String LOANS_FILE_NOT_FOUND = "LOANS_FILE_NOT_FOUND";
     private List<String> loansTableList;
 
