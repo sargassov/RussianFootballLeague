@@ -6,6 +6,7 @@ import FootballManager.manager.Corrector;
 import FootballManager.manager.Tournament;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -46,34 +47,35 @@ public class LoansTable extends Table implements Data{
                 String[] mass = loansTableList.get(tableVal).split("/");
                 Bank bank = rfpl.myTeam.loans.get(loansVal);
 
-                String[] commandArr = {
-                        "" + bank.getTookMoney(),
+                Object[] commandArr = {
+                        BigDecimal.valueOf(bank.getTookMoney() / 10000, 2),
                         typeOfReturnToString(bank.getTypeOfReturn()),
                         dateToString(bank.getDateOfLoan()),
-                        "" + bank.getAlreadyPaid(),
-                        remainsToPay(bank),
+                        BigDecimal.valueOf(bank.getAlreadyPaid() / 10000, 2),
+                        BigDecimal.valueOf(bank.getRemainMoney() / 10000, 2),
                         dateToString(bank.getRemainsDate())
                 };
 
-                mass[2] = Corrector.wordToCenter(bank.getName(), LINELENGTH27);
+                mass[2] = Corrector.wordToCenter(bank.getName(), mass[2].length());
                 for(int z = 3, a = 0; z < mass.length; z++, a++){
-                    String temp = commandArr[a];
-                    if(z == 5 || z == 8){
-                        mass[z] = Corrector.wordToCenter(temp, LINELENGTH10);
-                    }
-                    else if(z == 6 || z == 7){
-                        mass[z] = Corrector.wordToCenter(temp.substring(0, temp.indexOf('.') + 2), LINELENGTH5);
-                    }
-                    else{
-                        mass[z] = Corrector.wordToCenter(temp, LINELENGTH5);
-                    }
+                    mass[z] = Corrector.wordToCenter(commandArr[a].toString(), mass[z].length());
+//                    String temp = commandArr[a];
+//                    if(z == 5 || z == 8){
+//                        mass[z] = Corrector.wordToCenter(temp, mass[z].length());
+//                    }
+//                    else if(z == 6 || z == 7){
+//                        mass[z] = Corrector.wordToCenter(temp.substring(0, temp.indexOf('.') + 2), mass[z].length());
+//                    }
+//                    else{
+//                        mass[z] = Corrector.wordToCenter(temp, mass[z].length());
+//                    }
 
                 }
-                String temp = "";
-                for(String s : mass){
-                    temp +=(s +"|");
-                }
-                loansTableList.set(tableVal, temp);
+//                String temp = "";
+//                for(String s : mass){
+//                    temp +=(s +"|");
+//                }
+                loansTableList.set(tableVal, Corrector.stringStapler(mass));
                 loansVal++;
             }
 
@@ -82,11 +84,7 @@ public class LoansTable extends Table implements Data{
         System.out.println(loansTableList.get(loansTableList.size() - 1) + "\n\n");
     }
 
-    private String remainsToPay(Bank bank) {
 
-        String remains = "" + (bank.getRemainMoney() - bank.getAlreadyPaid());
-        return  remains;
-    }
 
     private String dateToString(GregorianCalendar dateOfLoan) {
         String stringDate = "";

@@ -15,7 +15,8 @@ public class RealiseCheatCodeOption implements CheatCodeMenuOptionsInterface{
             new CreateLeoMessiCheat(),
             new NotInjuriesCheat(),
             new OneMillonEuroCheat(),
-            new ThousandFansCheat()
+            new ThousandFansCheat(),
+            new SponsorCheat()
     };
 
     @Override

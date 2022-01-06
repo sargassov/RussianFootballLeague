@@ -51,8 +51,8 @@ public class VisualCalendar implements CalendarMenuOptionsInterface {
         Day day = rfpl.calendar.get(highBorderValueOfDays).get(choise - 1);
         System.out.println(day.date.get(Calendar.DAY_OF_MONTH) + " of " + curMonth);
         if(day instanceof DayMatch){
-            System.out.println("There will be a match this day " + ((DayMatch) day).home + " "
-            + ((DayMatch) day).away + " at stadium " + ((DayMatch) day).stadium);
+            System.out.println("There will be a match this day " + ((DayMatch) day).home.name + " "
+            + ((DayMatch) day).away.name + " at stadium " + ((DayMatch) day).stadium.getTitle());
         }
         else if(day instanceof DayTrain){
             System.out.println("There will be a train this day ");

@@ -56,7 +56,7 @@ public class StadiumInfoTable extends Table implements Data{
 
                     else{ tech = "" + (double)stadInfoCompareArr[y]; }
 
-                    mass[3] = Corrector.wordToCenter(tech, LINELENGTH25);
+                    mass[3] = Corrector.wordToCenter(tech, mass[3].length());
                     stadiumInfoList.set(x, "");
 
                     for (int i = 0; i < mass.length; i++) {

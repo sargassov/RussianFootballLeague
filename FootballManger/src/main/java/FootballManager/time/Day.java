@@ -8,7 +8,9 @@ import java.util.List;
 
 public class Day {
     public GregorianCalendar date = new GregorianCalendar();
-    public boolean MatchParameter = false;
+    public boolean MatchParameter;
+    public boolean isPassed;
+    public boolean isToday;
     @Override
     public String toString(){
         return date.get(Calendar.DAY_OF_MONTH) + " " + date.get(Calendar.MONTH) + " " + date.get(Calendar.YEAR);

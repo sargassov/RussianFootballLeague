@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class PlayingCalendar extends Table implements CalendarMenuOptionsInterfa
     //private static final String PLAYING_CALENDAR_FILE_NOT_FOUND = "PLAYING CALENDAR FILE NOT FOUND";
     private List<String> playingCalendarList;
     private Path path;
+    private static int currentTour = 0;
 
 
 
@@ -31,6 +33,9 @@ public class PlayingCalendar extends Table implements CalendarMenuOptionsInterfa
     public void getOption(Tournament rfpl) {
 
         int tour = 0;
+        for (ArrayList<DayMatch> dayTour : rfpl.shedule){
+            if(dayTour.get(0).itWas) tour++;
+        }
 
         while(true){
             System.out.print(Corrector.getS(40));
@@ -45,7 +50,7 @@ public class PlayingCalendar extends Table implements CalendarMenuOptionsInterfa
                 e.printStackTrace();
             }
 
-            for(int x = 0, y = 0; x < playingCalendarList.size(); x++){
+            for(int x = currentTour, y = 0; x < playingCalendarList.size(); x++){
 
                 //System.out.println("tour = " + tour);
                 String[] mass = playingCalendarList.get(x).split("/");

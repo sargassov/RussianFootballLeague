@@ -14,14 +14,18 @@ import FootballManager.GameMenuInterfaces.*;
 import FootballManager.LeagueMenuOptions.LeagueMenuOptionsInterface;
 import FootballManager.LeagueMenuOptions.LeagueTableOption;
 import FootballManager.LeagueMenuOptions.ResultsTableOption;
+import FootballManager.LeagueMenuOptions.ViewAllPlayersOption;
+import FootballManager.NewDayOptions.GoToTomorrowOption;
+import FootballManager.NewDayOptions.NewDayMenuOptionsInterface;
 import FootballManager.StadiumMenuOptions.*;
+import FootballManager.Tables.SponsorsTable;
 import FootballManager.TeamMenuOptions.*;
 import FootballManager.TrainingMenuOptions.CoachesMenu;
+import FootballManager.TrainingMenuOptions.TrainingBalanceOption;
 import FootballManager.TrainingMenuOptions.TrainingMenuOptionsInterface;
 import FootballManager.TrainingMenuOptions.TrainingProgramsMenu;
 import FootballManager.TransferMenuOptions.BuyingPlayerOption;
 import FootballManager.TransferMenuOptions.SellPlayerOption;
-import FootballManager.TransferMenuOptions.ToPreviousMenu;
 import FootballManager.TransferMenuOptions.TransferMenuOptionsInterface;
 import FootballManager.cheats.Cheat;
 import FootballManager.finance.Bank;
@@ -29,6 +33,7 @@ import FootballManager.finance.Sponsor;
 import FootballManager.markets.Market;
 import FootballManager.strategies.Strategy;
 import FootballManager.time.Day;
+import FootballManager.time.DayChanger;
 import FootballManager.time.DayMatch;
 
 import java.util.*;
@@ -51,10 +56,12 @@ public class Tournament {
     public ArrayList<StadiumMenuOptionInterface> stadiumMenuOptionInterfaces;
     public ArrayList<LeagueMenuOptionsInterface> leagueMenuOptionsInterfaces;
     public ArrayList<CheatCodeMenuOptionsInterface> cheatCodeMenuOptionsInterfaces;
+    public ArrayList<NewDayMenuOptionsInterface> newDayMenuOptionsInterfaces;
     public Team myTeam = null;
     public List<Strategy> strategies;
     public List<Interface>interfaces;
     public Calendar currentDate;
+    public Day currentDay;
     public Calendar startDate;
     public Interface transferPrintInterface;
     public Interface visualCalendarInterface;
@@ -63,6 +70,7 @@ public class Tournament {
     private static final String TRANSFER_INTERFACE = "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\transfer_interface.txt";
     private static final String VISUAL_CALENDAR_INTERFACE = "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\visualCalendarInterface.txt";
 
+
     public Tournament(String NameOfLeague){
         name = NameOfLeague;
         teams = new Team[16];
@@ -70,18 +78,20 @@ public class Tournament {
         strategies = null;
         optionConstructor();
         interfaces = null;
-        currentDate = new GregorianCalendar(2019, Calendar.AUGUST,1);
-        startDate = (Calendar) currentDate.clone();
         transferPrintInterface = new Interface(TRANSFER_INTERFACE);
         visualCalendarInterface = new Interface(VISUAL_CALENDAR_INTERFACE);
         Market.setRfpl(this);
         Cheat.setRfpl(this);
+        DayChanger.setRfpl(this);
+        RevenueOption.setRfpl(this);
+        SponsorsTable.setCheatActive(false);
     }
 
     private void optionConstructor() {
         sheduleConstructor();
         calendarConstructor();
         IntefaceConstructor();
+        newDayMenuInterfacesConstructor();
         teamMenuInterfacesConstructor();
         trainingMenuInterfaceConstructor();
         transferMenuInterfaceConstructor();
@@ -90,6 +100,13 @@ public class Tournament {
         stadiumMenuInterfacesConstructor();
         leagueMenuInterfaceConstructor();
         cheatCodeInterfaceConstructor();
+    }
+
+    private void newDayMenuInterfacesConstructor() {
+        newDayMenuOptionsInterfaces = new ArrayList<>(Arrays.asList(
+                new FootballManager.NewDayOptions.ToPreviousMenu(),
+                new GoToTomorrowOption()
+        ));
     }
 
     private void cheatCodeInterfaceConstructor() {
@@ -103,7 +120,8 @@ public class Tournament {
         leagueMenuOptionsInterfaces = new ArrayList<>(Arrays.asList(
                 new FootballManager.LeagueMenuOptions.ToPreviousMenu(),
                 new LeagueTableOption(),
-                new ResultsTableOption()
+                new ResultsTableOption(),
+                new ViewAllPlayersOption()
         ));
     }
 
@@ -144,7 +162,8 @@ public class Tournament {
         trainingMenuOptionsInterfaces = new ArrayList<>(Arrays.asList(
                 new FootballManager.TrainingMenuOptions.ToPreviousMenu(),
                 new CoachesMenu(),
-                new TrainingProgramsMenu()));
+                new TrainingProgramsMenu(),
+                new TrainingBalanceOption()));
     }
 
     private void teamMenuInterfacesConstructor(){
@@ -188,7 +207,7 @@ public class Tournament {
     private void IntefaceConstructor(){
         userInterfaces = new ArrayList<>(Arrays.asList(
                 new QuitInterface(),
-                new NextMatchMenuInterface(),
+                new NewDayMenuInterface(),
                 new TeamMenuInterface(),
                 new TrainingMenuInterface(),
                 new TransferMenuInterface(),

@@ -8,14 +8,17 @@ import java.util.GregorianCalendar;
 public class Bank {
     private static Tournament rfpl;
     private final String name;
-    private final double percentValueDay;
-    private final double percentValueWeek;
-    private final double percentValueMonth;
+    private final int percentValueDay;
+    private final int percentValueWeek;
+    private final int percentValueMonth;
+    private int payPerDay;
+    private int payPerWeek;
+    private int payPerMonth;
     private double fullLoanAmountValue;
-    private int tookMoney;
-    private double remainMoney;
-    private double alreadyPaid = 0.0;
-    private final double maxLoanValue;
+    private long tookMoney;
+    private long remainMoney;
+    private long alreadyPaid = 0L;
+    private final long maxLoanValue;
     public enum TypeOfReturn {PER_DAY, PER_WEEK, PER_MONTH};
     private TypeOfReturn typeOfReturn;
     private GregorianCalendar dateOfLoan;
@@ -25,24 +28,52 @@ public class Bank {
     public Bank(String info){
         String[] mass = info.split("/");
         this.name = mass[0];
-        this.percentValueDay = Double.parseDouble(mass[1]);
-        this.percentValueWeek = Double.parseDouble(mass[2]);
-        this.percentValueMonth = Double.parseDouble(mass[3]);
+        this.percentValueDay = Integer.parseInt(mass[1]);
+        this.percentValueWeek = Integer.parseInt(mass[2]);
+        this.percentValueMonth = Integer.parseInt(mass[3]);
         this.fullLoanAmountValue = Double.parseDouble(mass[4]);
-        this.maxLoanValue = Double.parseDouble(mass[5]);
+        this.maxLoanValue = (Long.parseLong(mass[5]) * 1_000_000);
         System.out.println("BANKNAME = " + name);
 
+    }
+
+    public long getPayPerDay() {
+        return payPerDay;
+    }
+
+    public void setPayPerDay(int payPerDay) {
+        this.payPerDay = payPerDay;
+    }
+
+    public int getPayPerWeek() {
+        return payPerWeek;
+    }
+
+    public void setPayPerWeek(int payPerWeek) {
+        this.payPerWeek = payPerWeek;
+    }
+
+    public int getPayPerMonth() {
+        return payPerMonth;
+    }
+
+    public void setPayPerMonth(int payPerMonth) {
+        this.payPerMonth = payPerMonth;
+    }
+
+    public void setAlreadyPaid(long alreadyPaid) {
+        this.alreadyPaid = alreadyPaid;
     }
 
     public static void setRfpl(Tournament rfpl) {
         Bank.rfpl = rfpl;
     }
 
-    public double getRemainMoney() {
+    public long getRemainMoney() {
         return remainMoney;
     }
 
-    public void setRemainMoney(double remainMoney) {
+    public void setRemainMoney(long remainMoney) {
         this.remainMoney = remainMoney;
     }
 
@@ -50,7 +81,7 @@ public class Bank {
         this.tookMoney = tookMoney;
     }
 
-    public int getTookMoney() {
+    public long getTookMoney() {
         return tookMoney;
     }
 
@@ -68,25 +99,25 @@ public class Bank {
 
     public TypeOfReturn getTypeOfReturn() { return typeOfReturn; }
 
-    public double getAlreadyPaid() { return alreadyPaid; }
+    public long getAlreadyPaid() { return alreadyPaid; }
 
     public double getFullVal() {
         return fullLoanAmountValue;
     }
 
-    public double getMaxLoan() {
+    public long getMaxLoan() {
         return maxLoanValue;
     }
 
-    public double getPerDay() {
+    public int getPercentDay() {
         return percentValueDay;
     }
 
-    public double getPerMon() {
+    public int getPercentMon() {
         return percentValueMonth;
     }
 
-    public double getPerWeek() {
+    public int getPercentWeek() {
         return percentValueWeek;
     }
 
@@ -95,15 +126,23 @@ public class Bank {
     }
 
     public void returnLoan(){
-        double amountToReturn = remainMoney - alreadyPaid;
-        rfpl.myTeam.wealth -= amountToReturn;
+        //if(typeOfReturn.equals(TypeOfReturn.PER_DAY)) rfpl.myTeam.
+
+        rfpl.myTeam.wealth -= remainMoney;
         tookMoney = 0;
-        remainMoney = 0.0;
-        alreadyPaid = 0.0;
+        remainMoney = 0;
+        alreadyPaid = 0;
         typeOfReturn = null;
         dateOfLoan = null;
         remainsDate = null;
+        payPerDay = 0;
+        payPerWeek = 0;
+        payPerMonth = 0;
         rfpl.myTeam.loans.remove(this);
         rfpl.banks.add(this);
+        //System.out.println("max value of loans = " + rfpl.myTeam.maxValueOfLoans);
+        //rfpl.myTeam.maxValueOfLoans;
+        System.out.println("Loan of " + name + " bank was paid.");
+
     }
 }

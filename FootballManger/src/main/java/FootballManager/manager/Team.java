@@ -28,12 +28,12 @@ public class Team {
     public int regularCapacity;
     public ArrayList<Coach> coaches = new ArrayList<Coach>();
     public ArrayList<Bank>loans = new ArrayList<>();
-    public double wealth;
-    public double startWealth;
-    public double transferExpenses;
-    public double personalExpenses;
-    public double marketExpenses;
-    public double stadiumExpenses;
+    public long wealth;
+    public final long startWealth;
+    public long transferExpenses;
+    public long personalExpenses;
+    public long marketExpenses;
+    public long stadiumExpenses;
     public ArrayList<Player> playerList = new ArrayList<Player>();
     public Strategy strategy = new Strategy();
     public ArrayList<String> coachInterface;
@@ -56,8 +56,8 @@ public class Team {
         Manager manager = new Manager(StringMass[3]);
         if(coaches.size() == 0) {coaches.add(manager);}
 
-        wealth = Double.parseDouble(StringMass[5]);
-        startWealth = Double.parseDouble(StringMass[5]);
+        wealth = Integer.parseInt(StringMass[5]) * 1_000_000;
+        startWealth = wealth;
 
 //        transferExpenses = 0.0;
 //        personalExpenses = 0.0;
@@ -72,24 +72,24 @@ public class Team {
 
         random = new Random();
         sponsor = rfpl.sponsorList.get(random.nextInt(16));
-        wealth += sponsor.contractBonusWage;
+        wealth += sponsor.getContractBonusWage();
         regularCapacity = capacityStad / 4;
-        System.out.println(name + " " + sponsor.name);
+        System.out.println(name + " " + sponsor.getName());
     }
 
     public void breakSponsorContract(){
-        wealth -= sponsor.contractBonusWage;
-        System.out.println("\n" + Corrector.getS(35) + "Contract with " + sponsor.name + " was broken!\n" +
-                Corrector.getS(35) + sponsor.contractBonusWage + " gived away from team budget!");
+        wealth -= sponsor.getContractBonusWage();
+        System.out.println("\n" + Corrector.getS(35) + "Contract with " + sponsor.getName() + " was broken!\n" +
+                Corrector.getS(35) + sponsor.getContractBonusWage() + " gived away from team budget!");
         sponsor = null;
 
     }
 
     public void offerSponsorContract(Sponsor sponsor) {
         this.sponsor = sponsor;
-        wealth += sponsor.contractBonusWage;
-        System.out.println("\n" + Corrector.getS(30) + "Contract with " + sponsor.name + " was offered!\n" +
-                Corrector.getS(30) + sponsor.contractBonusWage + " came into team budget!");
+        wealth += sponsor.getContractBonusWage();
+        System.out.println("\n" + Corrector.getS(30) + "Contract with " + sponsor.getName() + " was offered!\n" +
+                Corrector.getS(30) + sponsor.getContractBonusWage() + " came into team budget!");
     }
 
     public int teamCounter(){

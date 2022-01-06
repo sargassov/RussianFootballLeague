@@ -3,17 +3,18 @@ package FootballManager.GameMenuInterfaces;
 
 import FootballManager.manager.Corrector;
 import FootballManager.manager.Tournament;
+import FootballManager.time.DayChanger;
 
 import java.util.List;
 
-public class TrainingMenuInterface implements GameMenuInterface {
+public class NewDayMenuInterface implements GameMenuInterface {
 
     @Override
     public void Do(Tournament rfpl) {
-        while (true) {
-            toPrintMenu(rfpl.interfaces.get(3).fields);
-            int choise = Corrector.inputIntMethod(0, 3);
-            rfpl.trainingMenuOptionsInterfaces.get(choise).getOption(rfpl);
+        while(true){
+            toPrintMenu(rfpl.interfaces.get(1).fields);
+            int choise = Corrector.inputIntMethod(0, 2);
+            rfpl.newDayMenuOptionsInterfaces.get(choise).getOption(rfpl);
         }
     }
 

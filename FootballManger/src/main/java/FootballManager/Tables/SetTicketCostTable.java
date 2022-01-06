@@ -53,7 +53,7 @@ public class SetTicketCostTable extends Table implements Data{
 
                     tech = "" + (int)setTicketCompareArr[y];
 
-                    mass[3] = Corrector.wordToCenter(tech, LINELENGTH9);
+                    mass[3] = Corrector.wordToCenter(tech, mass[3].length());
                     setTicketCostList.set(x, "");
 
                     for (int i = 0; i < mass.length; i++) {

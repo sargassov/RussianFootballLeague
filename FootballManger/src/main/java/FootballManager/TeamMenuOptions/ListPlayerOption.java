@@ -9,9 +9,20 @@ import FootballManager.manager.Tournament;
 import java.util.ArrayList;
 
 public class ListPlayerOption implements TeamMenuOptionsInterface {
+
+    private static Tournament rfpl;
+
     @Override
     public void getOption(Tournament rfpl) {
-        new ListOfPlayersTable().toPrint(rfpl);
+
+        ListPlayerOption.rfpl = rfpl;
+        new ListOfPlayersTable(false, rfpl.myTeam.playerList).toPrint(rfpl);
+
+        afterTableMethod();
+
+    }
+
+    public void afterTableMethod() {
         int choise = Corrector.inputIntMethod(0, 1);
         if(choise == 0) return;
         else{
@@ -26,18 +37,17 @@ public class ListPlayerOption implements TeamMenuOptionsInterface {
 
         final int finalInt = Corrector.inputIntMethod(0, 19);
         if(finalInt == 0) return;
-        else if(finalInt == 1 || finalInt == 2 || finalInt == 4 || finalInt == 18) ListPlayerOptionSorts.sort(rfpl, finalInt);
+        else if(finalInt == 1 || finalInt == 2 || finalInt == 4 || finalInt == 18) ListPlayerOptionSorts.sort(rfpl.myTeam.playerList, finalInt);
         else if(finalInt == 3 || finalInt == 5 || finalInt == 6 || finalInt == 7 || finalInt == 8 ||
                 finalInt == 9 || finalInt == 11 || finalInt == 12 || finalInt == 14 || finalInt == 15 || finalInt == 16)
-            ListPlayerOptionSorts.sort(rfpl, finalInt, 0);
+            ListPlayerOptionSorts.sort(rfpl.myTeam.playerList, finalInt, 0);
             //ListPlayerOptionSorts.sort(rfpl, choise, 0);
-        else if(finalInt == 10) ListPlayerOptionSorts.sort(rfpl, true);
-        else if(finalInt == 13) ListPlayerOptionSorts.sort(rfpl);
-        else if(finalInt == 17)  ListPlayerOptionSorts.sort(rfpl, 0.0);
+        else if(finalInt == 10) ListPlayerOptionSorts.sort(rfpl.myTeam.playerList, true);
+        else if(finalInt == 13) ListPlayerOptionSorts.sort(rfpl.myTeam.playerList);
+        else if(finalInt == 17)  ListPlayerOptionSorts.sort(rfpl.myTeam.playerList, 0.0);
         else playerViewMenu(rfpl, rfpl.myTeam.playerList);
 
         getOption(rfpl);
-
     }
 
 
@@ -78,7 +88,7 @@ public class ListPlayerOption implements TeamMenuOptionsInterface {
                 "\n" + Corrector.getS(47) + "Training: " + choosen.trainingAble +
                 "\n" + Corrector.getS(25) + "Does player a captain function: " + boolToS(choosen.isCapitan) +
                 "\n" + Corrector.getS(32) + "Is player in first-team: " + boolToS(choosen.is11Th) +
-                "\n" + Corrector.getS(41) + "Player's price: " + choosen.price + " million Euro\n");
+                "\n" + Corrector.getS(41) + "Player's price: " + choosen.price + " Euro\n");
 
         System.out.println("\n\n" + Corrector.getS(50) + "\"1\" to previous\n" +
                 Corrector.getS(50) + "\"2\"" + " to next\n" +

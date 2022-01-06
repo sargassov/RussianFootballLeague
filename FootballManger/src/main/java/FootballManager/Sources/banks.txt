@@ -1,6 +1,6 @@
 ZBER/3/10/55/1.2/45
-WTB/2/12/70/1.15/40
-Inkoff Bank/1.5/8/34/1.1/10
-Omega Bank/3.9/14/66/1.66/85
-Air Bank/1.1/7/34/3.2/24
-TrainsCapitalBank/3/25/105/1.05/80
+WTB/2/12/70/1.4/40
+Inkoff Bank/2/8/34/1.1/10
+Omega Bank/4/14/66/1.8/85
+Air Bank/1/7/34/3.2/24
+TrainsCapitalBank/3/25/105/1.2/80

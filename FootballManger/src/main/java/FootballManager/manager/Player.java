@@ -20,14 +20,14 @@ public class Player {
     public Integer power;
     public Integer captainAble;
     public Integer tire = 0;
-    public Integer timeBeforeTreat = 0;
+    public Integer timeBeforeTreat;
     public Integer yearBirth;
     public Integer trainingAble;
-    public Integer trainingBalance = 0;
+    public Integer trainingBalance;
     public boolean isInjury = false;
     public boolean is11Th = false;
     public boolean isCapitan = false;
-    public double price;
+    public int price;
     public Integer strategyPlace = -100;
     private final static Integer youngPlayerBirthYear = 2004;
 
@@ -44,6 +44,8 @@ public class Player {
         toComposite(info);
 
         positionsAndAblesInit();
+        trainingBalance = 0;
+        timeBeforeTreat = 0;
         trainingAble = (int) (Math.random() * 10 + 10);
         price = priceToSell();
 
@@ -73,6 +75,8 @@ public class Player {
         natio = "Rus";
         club = "";
         position = randomPosition();
+        trainingBalance = 0;
+        timeBeforeTreat = 0;
         number = zero;
 
         youthabilities();
@@ -145,42 +149,34 @@ public class Player {
         defAble = Integer.parseInt(mass[6]);
         midAble = Integer.parseInt(mass[7]);
         forwAble = Integer.parseInt(mass[8]);
-        price = Double.parseDouble(mass[9]);
         captainAble = Integer.parseInt(mass[10]);
         number = Integer.parseInt(mass[11]);
     }
 
 
-    private double priceToSell() {
+    private int priceToSell() {
        int able;
-       price = 0.0;
+       double techPrice = 0;
 
        for (int currentAble : ables) {
            able = currentAble;
 
            for (int i = 60, y = 0; i <= 100; i += 10, y++) {
-               if(able < i && y == 0){ price += (priceCoeff[y] + able * mltpyCoeff[y]); break;}
-               else if (able < i) {price += (priceCoeff[y] + (able - (i - 10)) * mltpyCoeff[y]); break;}
+               if(able < i && y == 0){ techPrice += (priceCoeff[y] + able * mltpyCoeff[y]); break;}
+               else if (able < i) {techPrice += (priceCoeff[y] + (able - (i - 10)) * mltpyCoeff[y]); break;}
            }
 
        }
 
        for (int i = 20, y = 0; i < 70; i += 10, y++) {
-           if (captainAble > i && captainAble < i + 11) price *= captainCoeff[y];
+           if (captainAble > i && captainAble < i + 11) techPrice *= captainCoeff[y];
        }
 
-       if (captainAble > 70) price *= 1.35;
-       if (isInjury) price *= 0.8;
-       if (yearBirth < 1988) price *= 0.8;
-       RoundPrice();
+       if (captainAble > 70) techPrice *= 1.35;
+       if (isInjury) techPrice *= 0.8;
+       if (yearBirth < 1988) techPrice *= 0.8;
 
-       return price;
-    }
-
-    private void RoundPrice() {
-        double NewPrice = price * 100;
-        int temp = (int)NewPrice;
-        price = (double)temp / 100;
+       return (int) (techPrice * 1_000_000);
     }
 
     public static Integer YouthNumberCorrector(ArrayList<Player>list){
@@ -211,6 +207,19 @@ public class Player {
             return Corrector.wordToCenter("Sub", 4);
         else
             return Corrector.wordToCenter("", 4);
+    }
+
+    public void setNewPower() {
+        trainingBalance -= 100;
+        power++;
+
+        if(position.equals(Position.GOALKEEPER)) gkAble++;
+        if(position.equals(Position.DEFENDER)) defAble++;
+        if(position.equals(Position.MIDFIELDER)) midAble++;
+        if(position.equals(Position.FORWARD)) forwAble++;
+
+        ables = Arrays.asList(gkAble, defAble, midAble, forwAble);
+        price = priceToSell();
     }
 }
 

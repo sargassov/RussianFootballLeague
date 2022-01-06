@@ -12,7 +12,7 @@ public class LeagueMenuInterface implements GameMenuInterface {
     public void Do(Tournament rfpl) {
         while(true){
             toPrintMenu(rfpl.interfaces.get(8).fields);
-            int choise = Corrector.inputIntMethod(0, 2);
+            int choise = Corrector.inputIntMethod(0, 3);
             rfpl.leagueMenuOptionsInterfaces.get(choise).getOption(rfpl);
         }
     }
