@@ -35,12 +35,12 @@ public class CoachesMenu implements TrainingMenuOptionsInterface {
     }
 
     private void deletePlayer(Tournament rfpl){
-        if(rfpl.myTeam.coaches.size() > 1){
+        if(rfpl.myTeam.coaches.size() > 1 && onePlayerAtTraining(rfpl)){
             System.out.println("\n" + Corrector.getS(35) + "Choose a player to debar him out of training:");
             int x = 1;
             for(Coach c : rfpl.myTeam.coaches){
                 try{
-                    System.out.println(Corrector.getS(37) + x + " " + c.name + " (" + c.playerOnTrain.name + ")");
+                    System.out.println(Corrector.getS(37) + x + " " + c.getName() + " (" + c.getPlayerOnTrain().name + ")");
                 }
                 catch (NullPointerException ex){}
                 x++;
@@ -48,8 +48,8 @@ public class CoachesMenu implements TrainingMenuOptionsInterface {
             while(true){
                 int choise = Corrector.inputIntMethod(2, rfpl.myTeam.coaches.size());
                 choise--;
-                if(rfpl.myTeam.coaches.get(choise).playerOnTrain != null){
-                    rfpl.myTeam.coaches.get(choise).playerOnTrain = null;
+                if(rfpl.myTeam.coaches.get(choise).getPlayerOnTrain() != null){
+                    rfpl.myTeam.coaches.get(choise).setPlayerOnTrain(null);
                     //rfpl.my_team.coachInterface.set(4 * choise + 4, blank);
                     int tech = choise;
                     for(; tech < 6; tech++){
@@ -64,7 +64,24 @@ public class CoachesMenu implements TrainingMenuOptionsInterface {
             }
 
         }
+        else{
+            System.out.println("\n\n\t\t\tYou havent players on the training");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
+    }
+
+    private boolean onePlayerAtTraining(Tournament rfpl) {
+
+        for (Coach c : rfpl.myTeam.coaches){
+            if(c.getPlayerOnTrain() != null) return true;
+        }
+
+        return false;
     }
 
     private void addPlayer(Tournament rfpl){
@@ -73,7 +90,7 @@ public class CoachesMenu implements TrainingMenuOptionsInterface {
             int x = 1;
             for(Coach c : rfpl.myTeam.coaches){
                 if(x != 1)
-                    System.out.println(Corrector.getS(45) + x + " " + c.name);
+                    System.out.println(Corrector.getS(45) + x + " " + c.getName());
                 x++;
             }
             ArrayList<Player> positionPlayers = new ArrayList<Player>();
@@ -82,7 +99,7 @@ public class CoachesMenu implements TrainingMenuOptionsInterface {
             ArrayList<Position> posArr = new ArrayList<>(Arrays.asList(Position.GOALKEEPER,
                     Position.DEFENDER, Position.MIDFIELDER, Position.FORWARD));
             for(Position p : posArr){
-                if(rfpl.myTeam.coaches.get(choose).coachPos.equals(p)){
+                if(rfpl.myTeam.coaches.get(choose).getCoachPos().equals(p)){
                     for(Player player : rfpl.myTeam.playerList) {
                         if(player.position.equals(p) && !playerArleadyChoosedOnTrain(rfpl, player))
                             positionPlayers.add(player);
@@ -101,7 +118,7 @@ public class CoachesMenu implements TrainingMenuOptionsInterface {
             choise = Corrector.inputIntMethod(1, positionPlayers.size());
             choise--;
             Coach currentCoach = rfpl.myTeam.coaches.get(choose);
-            currentCoach.playerOnTrain = positionPlayers.get(choise);
+            currentCoach.setPlayerOnTrain(positionPlayers.get(choise));
             rfpl.myTeam.coaches.set(choose, currentCoach);
         }
         else {
@@ -123,8 +140,8 @@ public class CoachesMenu implements TrainingMenuOptionsInterface {
         boolean isMatch = false;
         for(Coach c : rfpl.myTeam.coaches){
             if(!(c instanceof Manager)) {
-                if(c.playerOnTrain != null)
-                    if (c.playerOnTrain.name.equals(player.name)){
+                if(c.getPlayerOnTrain() != null)
+                    if (c.getPlayerOnTrain().name.equals(player.name)){
                         isMatch = true;
                         return isMatch;
                     }
@@ -145,7 +162,7 @@ public class CoachesMenu implements TrainingMenuOptionsInterface {
                 System.out.println("\n\n" + Corrector.getS(50) + "Your Coaches: ");
                 for(Coach c : rfpl.myTeam.coaches){
                     if(!(c instanceof Manager)){
-                        System.out.println(Corrector.getS(44) + coachCount + ". " + c. name);
+                        System.out.println(Corrector.getS(44) + coachCount + ". " + c.getName());
                         coachCount++;
                     }
                 }
@@ -154,7 +171,7 @@ public class CoachesMenu implements TrainingMenuOptionsInterface {
                 int coachDeleteChoise = Corrector.inputIntMethod(0, rfpl.myTeam.coaches.size());
                 if(coachDeleteChoise == 0) return;
                 else if(coachDeleteChoise == 1){
-                    System.out.println("\n\n" + Corrector.getS(42) + rfpl.myTeam.coaches.get(0).name + " can't be deleted\n");
+                    System.out.println("\n\n" + Corrector.getS(42) + rfpl.myTeam.coaches.get(0).getName() + " can't be deleted\n");
                     continue;
                 }
                 coachDeleteChoise--;
@@ -187,11 +204,12 @@ public class CoachesMenu implements TrainingMenuOptionsInterface {
             else if(choise == 2) coach = new DefenderCoach("Defender Coach");
             else if(choise == 3) coach = new MidfielderCoach("Midfielder Coach");
             else coach = new ForwardCoach("Forward Coach");
+            //coach.setSalary(300000);
 
             System.out.println("\n");
-            menuString = new ArrayList<>(Arrays.asList("What type of " + coach.name + " you need?\n",
-                    "==> 1. Local " + coach.name + " 1 mln. EURO\n", "==> 2. Profi "+ coach.name + " 3 mln. EURO\n",
-                    "==> 3. World " + coach.name + " 5 mln. EURO\n\n", "==> 0. To qiut: "));
+            menuString = new ArrayList<>(Arrays.asList("What type of " + coach.getName() + " you need?\n",
+                    "==> 1. Local " + coach.getName() + " 1 mln. EURO\n", "==> 2. Profi "+ coach.getName() + " 3 mln. EURO\n",
+                    "==> 3. World " + coach.getName() + " 5 mln. EURO\n\n", "==> 0. To qiut: "));
             for(int menuStringCounter = 0, space = 39; menuStringCounter < menuString.size(); menuStringCounter++){
                 System.out.print(Corrector.getS(space) + menuString.get(menuStringCounter));
                 if(space == 39) space = 38;
@@ -201,14 +219,26 @@ public class CoachesMenu implements TrainingMenuOptionsInterface {
             if(choise == 0) return;
             menuString = new ArrayList<>(Arrays.asList("Local ", "Profi ", "World "));
             choise--;
-            for(int cycleCount = 0, costCoachCount = 1; cycleCount < 3; cycleCount++, costCoachCount += 2) {
+            for(int cycleCount = 0, costCoachCount = 1_000_000; cycleCount < 3; cycleCount++, costCoachCount += 2_000_000) {
                 if (choise == cycleCount) {
                     if (rfpl.myTeam.wealth >= costCoachCount) {
-                        coach.name = menuString.get(cycleCount) + coach.name;
+                        coach.setName(menuString.get(cycleCount) + coach.getName());
                         rfpl.myTeam.coaches.add(coach);
                         rfpl.myTeam.wealth -= costCoachCount;
+                        rfpl.myTeam.personalExpenses -= costCoachCount;
                     } else MessageClass.notEnoughMoney();
                 }
+            }
+            if(coach.getName().contains("Local")) {
+                coach.setLevelOfCoach(LevelOfCoach.LOCAL);
+            }
+            else if(coach.getName().contains("Profi")){
+                coach.setLevelOfCoach(LevelOfCoach.PROFI);
+                //coach.setSalary(500000);
+            }
+            if(coach.getName().contains("World")){
+                coach.setLevelOfCoach(LevelOfCoach.WORLD);
+                //coach.setSalary(1_000_000);
             }
         }
         else {

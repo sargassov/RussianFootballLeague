@@ -12,6 +12,9 @@ public class DayMatch extends Day {
     public Team away;
     public Stadium stadium;
     public static Tournament rfpl;
+    public int homeScore;
+    public int awayScore;
+    public boolean itWas = false;
 
     public DayMatch(){}
 

@@ -11,11 +11,12 @@ public class SellPlayerOption implements TransferMenuOptionsInterface {
         while(true){
             System.out.println("\n\n");
             Corrector.getS(48);
-            Corrector.wordUpperCase("sell player " + rfpl.myTeam.name + " " + rfpl.myTeam.wealth + " mln. euro");
+            Corrector.wordUpperCase("sell player " + rfpl.myTeam.name + " "
+                    + Corrector.priceInMillion((int) rfpl.myTeam.wealth) + " mln. euro");
             System.out.println("\n");
             int counter = 1;
             for(Player player : rfpl.myTeam.playerList){
-                System.out.println(counter + ". " + player.name + " " + player.price/2);
+                System.out.println(counter + ". " + player.name + " " + Corrector.priceInMillion(player.price/2));
                 counter++;
             }
             System.out.println("\nEnter a player to sell him, or press \"0\" to quit: ");

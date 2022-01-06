@@ -6,19 +6,21 @@ import FootballManager.manager.Corrector;
 import FootballManager.manager.Tournament;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.function.BiConsumer;
 
 public class ExpensesTable extends Table implements Data{
 
     private static Tournament rfpl;
-    private final String expensesTablePath = "src/textFiles/expensesTable.txt";
+    private final String expensesTablePath = "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\expensesTable.txt";
     private final static String EXPENSES_FILE_NOT_FOUND = "BANKS_FILE_NOT_FOUND";
     private List<String> expensesTableList;
-    private final double delimeter = 100.0;
+    private final int delimeter = 100;
 
     public ExpensesTable(){
 
@@ -38,14 +40,15 @@ public class ExpensesTable extends Table implements Data{
 
         ExpensesTable.rfpl = rfpl;
 
-        double[] compareArr = {
-                getExpense(1),
-                getExpense(2),
-                getExpense(3),
-                Corrector.coefficient(getTransferExpense()),
-                Corrector.coefficient(getPersonalExpense()),
-                Corrector.coefficient(getStadiumExpense()),
-                Corrector.coefficient(getProficitDeficit())
+        BigDecimal[] compareArr = {
+                BigDecimal.valueOf(getExpense(1) / 10000, 2),
+                BigDecimal.valueOf(getExpense(2) / 10000, 2),
+                BigDecimal.valueOf(getExpense(3) / 10000, 2),
+                BigDecimal.valueOf(getTransferExpense() / 10000, 2),
+                BigDecimal.valueOf(getPersonalExpense() / 10000, 2),
+                BigDecimal.valueOf(getStadiumExpense() / 10000, 2),
+                BigDecimal.valueOf(getMarketExpenses() / 10000, 2),
+                BigDecimal.valueOf(getProficitDeficit() / 10000, 2)
         };
 
 
@@ -53,7 +56,7 @@ public class ExpensesTable extends Table implements Data{
 
             if(i > 1 && j < compareArr.length){
                 String[] mass = expensesTableList.get(i).split("/");
-                mass[3] = Corrector.wordToCenter("" + compareArr[j], LINELENGTH10);
+                mass[3] = Corrector.wordToCenter("" + compareArr[j], mass[3].length());
                 expensesTableList.set(i, "");
                 for(int x = 0; x < mass.length; x++){
                     expensesTableList.set(i, (expensesTableList.get(i) + (mass[x] + "|")));
@@ -66,35 +69,37 @@ public class ExpensesTable extends Table implements Data{
         System.out.print(REVENUE_AND_EXPENSES_MENU);
     }
 
-    private double getProficitDeficit() {
+    private long getProficitDeficit() {
         return rfpl.myTeam.wealth - rfpl.myTeam.startWealth;
     }
 
-    private double getStadiumExpense() {
-        return 0.0;
+    private long getStadiumExpense() {
+        return rfpl.myTeam.stadiumExpenses;
     }
 
-    private double getExpense(int coeff){
+    private long getExpense(int coeff){
 
-        double expense = 0.0;
+        int expense = 0;
 
         for(Bank bank : rfpl.myTeam.loans){
             if(coeff == 1 && bank.getTypeOfReturn().equals(Bank.TypeOfReturn.PER_DAY))
-                expense -= bank.getPerDay() * bank.getTookMoney() / delimeter;
+                expense -= bank.getPayPerDay();
             else if(coeff == 2 && bank.getTypeOfReturn().equals(Bank.TypeOfReturn.PER_WEEK))
-                expense -= bank.getPerWeek() * bank.getTookMoney() / delimeter;
+                expense -= bank.getPayPerWeek();
             else if(coeff == 3 && bank.getTypeOfReturn().equals(Bank.TypeOfReturn.PER_MONTH))
-                expense -= bank.getPerMon() * bank.getTookMoney() / delimeter;
+                expense -= bank.getPayPerMonth();
         }
 
-        return expense;
+        return (long)expense;
     }
 
-    private double getTransferExpense(){
+    private long getTransferExpense(){
         return rfpl.myTeam.transferExpenses;
     }
 
-    private double getPersonalExpense(){
+    private long getPersonalExpense(){
         return rfpl.myTeam.personalExpenses;
     }
+
+    private long getMarketExpenses() {return rfpl.myTeam.marketExpenses;}
 }

@@ -3,6 +3,7 @@ package FootballManager.Tables;
 
 import FootballManager.manager.Corrector;
 import FootballManager.manager.Tournament;
+import FootballManager.time.DayMatch;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -27,10 +28,16 @@ public class MainMenuTable extends Table implements Data{
         for (String string : fields) {
             if(!string.contains("NEXT")) System.out.println(string);
             else{
-                String newString = string + "    (" +
-                        + rfpl.currentDate.get(Calendar.DAY_OF_MONTH) + " " +
-                        monthInWord(rfpl.currentDate.get(Calendar.MONTH)) + " "
-                        + rfpl.currentDate.get(Calendar.YEAR) + ")";
+                String newString = string;
+                if(rfpl.currentDay instanceof DayMatch){
+                    newString += " MATCH";
+                }
+
+                newString += "    (" +
+                            + rfpl.currentDay.date.get(Calendar.DAY_OF_MONTH) + " " +
+                            monthInWord(rfpl.currentDay.date.get(Calendar.MONTH)) + " "
+                            + rfpl.currentDay.date.get(Calendar.YEAR) + ")";
+
                 System.out.println(newString);
             }
         }

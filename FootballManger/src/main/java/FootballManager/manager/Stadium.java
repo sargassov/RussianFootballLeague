@@ -49,6 +49,22 @@ public class Stadium {
 
     }
 
+    public int allTicketCost(){
+        int[] allcost = {
+                simpleTicketCost * simpleCapacity,
+                vipTicketCost * vipCapacity,
+                fanTicketCost * fanCapacity,
+                awayTicketCost * awayCapacity,
+                familyTicketCost * familyCapacity
+        };
+
+        int result = 0;
+        for(int a: allcost){
+            result += a;
+        }
+        return result;
+    }
+
     public void setSimpleTicketCost(Integer simpleTicketCost) {
         this.simpleTicketCost = simpleTicketCost;
     }

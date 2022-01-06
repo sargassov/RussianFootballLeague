@@ -19,7 +19,8 @@ public class ExpensesOption implements FinanceMenuOptionsInterface {
         new ExpensesTable().toPrint(rfpl);
 
         int choise = Corrector.inputIntMethod(0, 2);
-
+        if(choise == 1) new RevenueOption().tryToChangeSponsor();
+        else if(choise == 2) new BanksOption();
 
     }
 }

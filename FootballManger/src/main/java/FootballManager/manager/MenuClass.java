@@ -40,7 +40,7 @@ public class MenuClass {
         System.out.print(ENTER_MANAGE_TEAM);
         //cin >> club;///////////////////////////////////////////////////////////////////////////
         //club = scanner.nextLine();
-        club = "Lokomotiv";
+        club = "CSKA";
 
         isClub();
     }

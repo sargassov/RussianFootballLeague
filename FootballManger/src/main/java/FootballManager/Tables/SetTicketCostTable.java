@@ -14,7 +14,7 @@ import java.util.List;
 public class SetTicketCostTable extends Table implements Data{
 
     private static Tournament rfpl;
-    private static final String setTicketCostPath = "src/textFiles/setTicketCost.txt";
+    private static final String setTicketCostPath = "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\setTicketCost.txt";
     private static final String SET_TICKET_COST_FILE_NOT_FOUND = "SET TICKET COST FILE NOT FOUND";
     private List<String> setTicketCostList;
 
@@ -53,7 +53,7 @@ public class SetTicketCostTable extends Table implements Data{
 
                     tech = "" + (int)setTicketCompareArr[y];
 
-                    mass[3] = Corrector.wordToCenter(tech, LINELENGTH9);
+                    mass[3] = Corrector.wordToCenter(tech, mass[3].length());
                     setTicketCostList.set(x, "");
 
                     for (int i = 0; i < mass.length; i++) {

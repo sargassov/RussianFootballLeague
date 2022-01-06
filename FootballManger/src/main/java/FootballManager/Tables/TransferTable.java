@@ -62,7 +62,7 @@ public class TransferTable extends Table implements Data {
     private static String enterWealth(Tournament rfpl, String name){
         for(Team team : rfpl.teams){
             if(team.name.equals(name)){
-                name = name + " " + team.wealth + " mln.";
+                name = name + " " + Corrector.priceInMillion((int) team.wealth) + " mln.";
             }
         }
         return name;
@@ -72,10 +72,9 @@ public class TransferTable extends Table implements Data {
         String info = " " + player.name;
         info = Corrector.inspacer(info) + " ";
         info += player.power + Corrector.getS(4);
-        if(player.position.equals("Forw")) info += player.position + Corrector.getS(4);
-        else if(player.position.equals("Gk")) info += player.position + Corrector.getS(6);
-        else info += player.position + Corrector.getS(5);
-        info += player.price;
+        info += Corrector.posInString(player.position);
+        info += Corrector.getS(8 - Corrector.posInString(player.position).length());
+        info += Corrector.priceInMillion(player.price);
         info = string51Chars(info);
         return info;
     }
