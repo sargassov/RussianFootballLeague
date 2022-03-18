@@ -213,7 +213,7 @@ public class FootballCalendar implements Cloneable {
             if (day.date.get(Calendar.DAY_OF_MONTH) == tour.get(0).date.get(Calendar.DAY_OF_MONTH) &&
                     day.date.get(Calendar.MONTH) == tour.get(0).date.get(Calendar.MONTH)) {
                 for (DayMatch match : tour) {
-                    if (match.home.equals(rfpl.myTeam.name) || match.away.equals(rfpl.myTeam.name)) {
+                    if (match.home.equals(rfpl.myTeam) || match.away.equals(rfpl.myTeam)) {
                         day = match;
                         day.MatchParameter = true;
                     }

@@ -25,7 +25,7 @@ public class MarketOption implements StadiumMenuOptionInterface{
         System.out.println("\n\n\n");
 
         if(rfpl.myTeam.markets.size() != 0){
-            System.out.println("Your club alredy has a market program:");
+            System.out.println("Your club already has a market program:");
             new AvalibleMarketTable().toPrint(rfpl);
         }
 
@@ -34,7 +34,7 @@ public class MarketOption implements StadiumMenuOptionInterface{
         int chooseTypeOfMarketing = Corrector.inputIntMethod(0, 4);
 
         if(chooseTypeOfMarketing == 0) return;
-        double cost = chooseTimePeriod(chooseTypeOfMarketing);
+        long cost = chooseTimePeriod(chooseTypeOfMarketing);
 
         int chooseTimePeriod = Corrector.inputIntMethod(0, 3);
 
@@ -83,26 +83,26 @@ public class MarketOption implements StadiumMenuOptionInterface{
 
     }
 
-    private double chooseTimePeriod(int markType) {
+    private long chooseTimePeriod(int markType) {
 
-        double cost;
+        long cost;
         System.out.print(Corrector.getS(sVal) + "You chase a ");
 
         if(markType == 1) {
             System.out.print("RADIO company with cost 1M Euro\n\n");
-            cost = 1.0;
+            cost = 1_000_000;
         }
         else if(markType == 2) {
             System.out.print("TV company with cost 3.5M Euro\n\n");
-            cost = 3.5;
+            cost = 3_500_000;
         }
         else if (markType == 3) {
             System.out.print("INTERNET company with cost 2.2M Euro\n\n");
-            cost = 2.2;
+            cost = 2_200_000;
         }
         else {
             System.out.print("BILLBOARD company with cost 0.5M Euro\n\n");
-            cost = 0.5;
+            cost = 500_000;
         }
 
         System.out.println(Corrector.getS(sVal) + "HOW LONG IT WILL BE?\n");

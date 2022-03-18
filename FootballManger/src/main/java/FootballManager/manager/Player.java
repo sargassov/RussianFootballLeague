@@ -1,16 +1,18 @@
 package FootballManager.manager;
-
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static FootballManager.time.DayMatch.rfpl;
+
 
 public class Player {
 
+    private static Tournament rfpl;
+
     public String name;
     public String natio;
-    public String club;
+    public Team team;
     public Position position;
     public Integer number;
     public Integer gkAble;
@@ -53,6 +55,10 @@ public class Player {
 
     }
 
+    public static void setRfpl(Tournament rfpl) {
+        Player.rfpl = rfpl;
+    }
+
     private int findPower(){
         for(int x = 0; x < positions.size(); x++) {
             if (this.position.equals(positions.get(x))) {
@@ -73,26 +79,16 @@ public class Player {
         positionsAndAblesInit();
         this.name = name;
         natio = "Rus";
-        club = "";
         position = randomPosition();
         trainingBalance = 0;
         timeBeforeTreat = 0;
         number = zero;
 
         youthabilities();
-
-        boolean isInjury = false;
-        boolean is11Th = false;
-        boolean isCapitan = false;
-
-        //System.out.println(position);
         price = priceToSell();
-
-
     }
 
     private void youthabilities() {
-        System.out.println(positions.size());
         captainAble = 1;
 
         for(int x = 0; x < positions.size(); x++){
@@ -143,7 +139,8 @@ public class Player {
         name = mass[0];
         yearBirth = Integer.parseInt(mass[1]);
         natio = mass[2];
-        club = mass[3];
+        team = selectTeam(mass[3]);
+
         position = Corrector.stringInPos(mass[4]);;
         gkAble = Integer.parseInt(mass[5]);
         defAble = Integer.parseInt(mass[6]);
@@ -151,6 +148,14 @@ public class Player {
         forwAble = Integer.parseInt(mass[8]);
         captainAble = Integer.parseInt(mass[10]);
         number = Integer.parseInt(mass[11]);
+    }
+
+    private Team selectTeam(String teamName) {
+        for(Team t : rfpl.teams)
+            if(t.name.equals(teamName)){
+                return t;
+            }
+        return null;
     }
 
 

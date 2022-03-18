@@ -58,10 +58,6 @@ public class Team {
 
         wealth = Integer.parseInt(StringMass[5]) * 1_000_000;
         startWealth = wealth;
-
-//        transferExpenses = 0.0;
-//        personalExpenses = 0.0;
-//        marketExpenses = 0.0;
         markets = new ArrayList<>();
 
         addToSponsor();
@@ -114,5 +110,41 @@ public class Team {
 
     public int getPoints(){
         return wins * 3 + draws;
+    }
+
+    @Override
+    public String toString() {
+        return "Team{" +
+                "name='" + name + '\'' +
+                ", town='" + town + '\'' +
+                ", stadium=" + stadium +
+                ", games=" + games +
+                ", wins=" + wins +
+                ", draws=" + draws +
+                ", defeats=" + defeats +
+                ", goalScored=" + goalScored +
+                ", goalMissed=" + goalMissed +
+                ", teamPower=" + teamPower +
+                ", capacityStad=" + capacityStad +
+                ", temporaryTicketCost=" + temporaryTicketCost +
+                ", regularCapacity=" + regularCapacity +
+                ", coaches=" + coaches +
+                ", loans=" + loans +
+                ", wealth=" + wealth +
+                ", startWealth=" + startWealth +
+                ", transferExpenses=" + transferExpenses +
+                ", personalExpenses=" + personalExpenses +
+                ", marketExpenses=" + marketExpenses +
+                ", stadiumExpenses=" + stadiumExpenses +
+                ", playerList=" + playerList +
+                ", strategy=" + strategy +
+                ", coachInterface=" + coachInterface +
+                ", sponsor=" + sponsor +
+                ", maxValueOfLoans=" + maxValueOfLoans +
+                ", changeSponsor=" + changeSponsor +
+                ", rfpl=" + rfpl +
+                ", random=" + random +
+                ", markets=" + markets +
+                '}';
     }
 }

@@ -84,6 +84,7 @@ public class Tournament {
         Cheat.setRfpl(this);
         DayChanger.setRfpl(this);
         RevenueOption.setRfpl(this);
+        Player.setRfpl(this);
         SponsorsTable.setCheatActive(false);
     }
 

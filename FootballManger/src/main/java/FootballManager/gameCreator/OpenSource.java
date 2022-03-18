@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 public class OpenSource {
 
-    private volatile Tournament rfpl;
+    private Tournament rfpl;
     private ExecutorService service;
     private Phaser phaser;
 
@@ -203,6 +203,7 @@ public class OpenSource {
                     int x = 0;
                     for(String line : lines){
                         rfpl.teams[x] = new Team(line, rfpl);
+                        System.out.println(x + "." + rfpl.teams[x].name);
                         ++x;
                     }
 
@@ -244,7 +245,7 @@ public class OpenSource {
                     for(String line : lines){
                         Player player = new Player(line);
                         for(Team t : rfpl.teams){
-                            if(t.name.equals(player.club)){
+                            if(t.name.equals(player.team.name)){
                                 t.playerList.add(player);
                                 break;
                             }
@@ -252,12 +253,7 @@ public class OpenSource {
                     }
 
                     for(Team t : rfpl.teams){
-                        t.playerList.sort(new Comparator<Player>() {
-                            @Override
-                            public int compare(Player o1, Player o2) {
-                                return o1.name.compareTo(o2.name);
-                            }
-                        });
+                        t.playerList.sort(Comparator.comparing(o -> o.name));
                     }
 
                 } catch (IOException e) {

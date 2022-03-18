@@ -1,11 +1,14 @@
 package FootballManager.time;
 
+import FootballManager.NewDayOptions.FootballMatchOption;
+import FootballManager.NewDayOptions.MatchSimulator;
 import FootballManager.coaches.Coach;
 import FootballManager.coaches.CoachProgram;
 import FootballManager.coaches.LevelOfCoach;
 import FootballManager.finance.Bank;
 import FootballManager.finance.Sponsor;
 import FootballManager.manager.*;
+import FootballManager.markets.Market;
 
 import java.util.*;
 
@@ -17,19 +20,54 @@ public class DayChanger {
 
     public static void toChangeDay(){
 
-        //isDayMatch();
+        isDayMatch();
+        if(!FootballMatchOption.continueFlag) return;
         noteOfChanges = new ArrayList<>();
         addDate();
         openYouthAcademy();
         setTrainingEffects();
         setFinanceUpdates();
+        setMarketingChanges();
         //setCoachSalary();
 
-        for(String s: noteOfChanges){
-            System.out.println(s);
+//        for(String s: noteOfChanges){
+//            System.out.println(s);
+//        }
+
+
+    }
+
+    private static void setMarketingChanges() {
+        for(int x = 0; x < rfpl.myTeam.markets.size(); x++){
+            Stadium stadium = rfpl.myTeam.stadium;
+            int capacity = stadium.getUsualAverageCapacity();
+            System.out.println("markets size = " + rfpl.myTeam.markets.size());
+            int newFansValue = (int) (capacity + capacity / 100 * rfpl.myTeam.markets.get(x).getCapacityCoeff());
+            stadium.setUsualAverageCapacity(newFansValue);
+            stadium.setSimpleCapacity(newFansValue);
+            noteOfChanges.add("New Stadium capacity is " + stadium.getUsualAverageCapacity());
+            if(!isActual(rfpl.myTeam.markets.get(x))){
+                rfpl.myTeam.markets.remove(rfpl.myTeam.markets.get(x));
+                System.out.println("MARKET REMOVE");
+                System.out.println("markets size = " + rfpl.myTeam.markets.size());
+                x--;
+            }
         }
 
+    }
 
+    private static boolean isActual(Market m) {
+        GregorianCalendar today = (GregorianCalendar) rfpl.currentDate;
+        GregorianCalendar endOfAction = m.getFinishDate();
+
+        if(today.get(Calendar.DAY_OF_MONTH) == endOfAction.get(Calendar.DAY_OF_MONTH)
+        && today.get(Calendar.MONTH) == endOfAction.get(Calendar.MONTH)
+        && today.get(Calendar.YEAR) == endOfAction.get(Calendar.YEAR)) return false;
+
+        System.out.println(today.get(Calendar.DAY_OF_MONTH) + "." + today.get(Calendar.MONTH) + "." + today.get(Calendar.YEAR));
+        System.out.println(endOfAction.get(Calendar.DAY_OF_MONTH) + "." + endOfAction.get(Calendar.MONTH) + "." + endOfAction.get(Calendar.YEAR));
+
+        return true;
     }
 
     private static void setCoachSalary() {
@@ -50,25 +88,6 @@ public class DayChanger {
         }
 
         myTeam.wealth -= expenses(loans);
-
-
-//           |--3--|All Stadium Tickets Cost                                      |    0.0   |
-//             |--4--|Team's Sponsor                                                |БурджХалиф|
-//                |--5--|Team's Day Wage                                               |    1.0   |
-//                |--6--|Team's Match Wage                                             |    0.0   |
-//                |--7--|Team's Goal Bonus                                             |    0.0   |
-//                |--8--|Team's Win Bonus                                              |    0.2   |
-//                |--9--|Team's Draw Bonus                                             |    0.0   |
-//                |-10--|Proficit(+) Deficit(-)                                        |   100.0
-
-//          |--1--|Team's Daily expenses                                         |    0.0   |
-//                |--2--|Team's Weekly expenses                                        |    0.0   |
-//                |--3--|Team's Monthly expenses                                       |    0.0   |
-//                |--4--|Team's Transfer expenses                                      |    0.0   |
-//                |--5--|Team's Personal expenses                                      |    0.0   |
-//                |--6--|Team's Stadium renewed expenses                               |    0.0   |
-//                |--7--|Teams Market expenses                                         |    0.0   |
-//             |--8--|Proficit(+) Deficit(-)                                        |   100.0  |
 
     }
 
@@ -152,7 +171,7 @@ public class DayChanger {
                 for(int x = 0; x < 5; x++){
                     Player p = t.playerList.get((int) (Math.random() * t.playerList.size()));
                     p.trainingBalance += p.trainingAble * (int) (Math.random() * 5);
-                    noteOfChanges.add(p.name + " " + p.club + " + " + p.trainingAble);
+                    noteOfChanges.add(p.name + " " + p.team.name + " + " + p.trainingAble);
                     if(p.trainingBalance >= 100)
                         p.setNewPower();
                 }
@@ -196,6 +215,12 @@ public class DayChanger {
 
     private static void addDate() {
 
+//        System.out.println("Current day = " + rfpl.currentDate.get(Calendar.DAY_OF_MONTH) + "." +
+//                rfpl.currentDate.get(Calendar.MONTH));
+//
+//        System.out.println("Current date = " + rfpl.currentDay.date.get(Calendar.DAY_OF_MONTH) + "." +
+//                rfpl.currentDay.date.get(Calendar.MONTH));
+
         rfpl.currentDay.isToday = false;
         rfpl.currentDay.isPassed = true;
         rfpl.currentDate.add(Calendar.DAY_OF_MONTH, 1);
@@ -203,14 +228,22 @@ public class DayChanger {
                 Corrector.intInMonth(rfpl.currentDate.get(Calendar.MONTH)) +
                 "." + rfpl.currentDate.get(Calendar.YEAR));
 
+//        System.out.println("Current date = " + rfpl.currentDate.get(Calendar.DAY_OF_MONTH) + "." +
+//                rfpl.currentDate.get(Calendar.MONTH));
+//
+//        System.out.println("Current day = " + rfpl.currentDay.date.get(Calendar.DAY_OF_MONTH) + "." +
+//                rfpl.currentDay.date.get(Calendar.MONTH));
+
         for (ArrayList<Day> month : rfpl.calendar){
             for (Day day: month){
                 if(day.date.get(Calendar.DAY_OF_MONTH) == rfpl.currentDate.get(Calendar.DAY_OF_MONTH) &&
                         day.date.get(Calendar.MONTH) == rfpl.currentDate.get(Calendar.MONTH) &&
                         day.date.get(Calendar.YEAR) == rfpl.currentDate.get(Calendar.YEAR)){
+
                     rfpl.currentDay = day;
                     rfpl.currentDay.isToday = true;
                     rfpl.currentDate = rfpl.currentDay.date;
+
                 }
             }
         }
@@ -224,7 +257,7 @@ public class DayChanger {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            MenuClass.gameMenu();
+            new FootballMatchOption(rfpl).matchPreview();
         }
     }
 

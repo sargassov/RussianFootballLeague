@@ -35,6 +35,10 @@ public class VisualCalendarTable extends Table implements Data {
         numberOfDayOfTheWeekDetermining(numberOfMonthInCalendarArray);
         System.out.println(numberOfDayOfTheWeek);
 
+//        for(Day day : currentMonth){
+//            System.out.println(day.date.get(Calendar.DAY_OF_MONTH) + ", ");
+//        }
+
 
         for (int x = 0, currentDayInMonth = 0, currentEventInMonth = 0; x < cloneVisualCalendarTable.fields.size(); x++) {
             if (x == 1) monthTitleToCenter();
@@ -42,11 +46,12 @@ public class VisualCalendarTable extends Table implements Data {
                 String[] mass = cloneVisualCalendarTable.fields.get(x).split("\\|");
 
                 for (int y = 2; y < mass.length; y++) {
-//
+//                    System.out.print(currentDayInMonth + "=");
                     if (quakeBeginOfMonth){
                         y = numberOfDayOfTheWeek;
                         quakeBeginOfMonth = false;
                     }
+//                    System.out.print(currentDayInMonth + "=");
                     inputNumbers(currentDayInMonth, currentMonth, y, mass);
                     currentDayInMonth++;
                 }
@@ -209,6 +214,7 @@ public class VisualCalendarTable extends Table implements Data {
 
         if (currentDayInMonth < currentMonth.size()) {
             Day currentDayInCalendar = currentMonth.get(currentDayInMonth);
+//            System.out.println(currentDayInCalendar.date.get(Calendar.DAY_OF_MONTH));
             mass[y] = Corrector.wordToCenter("" + currentDayInCalendar.date.get(Calendar.DAY_OF_MONTH), mass[y].length());
         }
     }

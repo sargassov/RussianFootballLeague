@@ -47,17 +47,17 @@ public class AvalibleMarketTable extends Table implements Data{
                     mass[2] = Corrector.wordToCenter(market.getMarketType().toString(), mass[2].length());
                     mass[3] = Corrector.wordToCenter(
                             "" + market.getStartDate().get(Calendar.DAY_OF_MONTH) + "." +
-                                    "" + market.getStartDate().get(Calendar.MONTH) + "." +
+                                    "" + (market.getStartDate().get(Calendar.MONTH) + 1) + "." +
                                     "" + market.getStartDate().get(Calendar.YEAR), mass[3].length());
                     mass[4] = Corrector.wordToCenter(
                             "" + market.getFinishDate().get(Calendar.DAY_OF_MONTH) + "." +
-                                    "" + market.getFinishDate().get(Calendar.MONTH) + "." +
+                                    "" + (market.getFinishDate().get(Calendar.MONTH) + 1) + "." +
                                     "" + market.getFinishDate().get(Calendar.YEAR), mass[4].length());
 
-                    String marketField = "";
-                    for (int y = 0; y < mass.length; y++) {
-                        marketField += (mass[y] + "|");
-                    }
+                    String marketField = Corrector.stringStapler(mass);
+//                    for (int y = 0; y < mass.length; y++) {
+//                        marketField += (mass[y] + "|");
+//                    }
 
                     System.out.println(marketField);
                     count++;

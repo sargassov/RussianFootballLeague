@@ -74,7 +74,7 @@ public class ListPlayerOption implements TeamMenuOptionsInterface {
         System.out.print("\n\n" + Corrector.getS(40));
         Player choosen = list.get(choise);
         Corrector.wordUpperCase(list.get(choise).name);
-        System.out.print("\n\n" + Corrector.getS(40) + "Playing in club: " + choosen.club +
+        System.out.print("\n\n" + Corrector.getS(40) + "Playing in club: " + choosen.team.name +
                 "\n" + Corrector.getS(43) + " Nationality: " + choosen.natio +
                 "\n" + Corrector.getS(47) + "Position: " + choosen.position +
                 "\n" + Corrector.getS(41) + "Number in team: " + choosen.number +

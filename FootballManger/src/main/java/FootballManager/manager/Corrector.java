@@ -297,11 +297,11 @@ public class Corrector {
     }
 
     public static String stringStapler(String[] mass){
-        String answer = "";
+        StringBuilder answer = new StringBuilder("");
         for(String s: mass){
-            answer += (s + "|");
+            answer.append(s + "|");
         }
-        return answer;
+        return answer.toString();
     }
 }
 

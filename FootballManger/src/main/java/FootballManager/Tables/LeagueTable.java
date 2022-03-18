@@ -44,7 +44,7 @@ public class LeagueTable extends Table implements Data{
             if(i > 1 && x < rfpl.teams.length){
 
                 int[] intMass = {rfpl.teams[x].games, rfpl.teams[x].wins, rfpl.teams[x].draws,
-                        rfpl.teams[x].defeats, rfpl.teams[x].goalScored, rfpl.myTeam.goalMissed,
+                        rfpl.teams[x].defeats, rfpl.teams[x].goalScored, rfpl.teams[x].goalMissed,
                         rfpl.teams[x].getPoints()};
 
                 String[] mass = leagueTableList.get(i).split("/");

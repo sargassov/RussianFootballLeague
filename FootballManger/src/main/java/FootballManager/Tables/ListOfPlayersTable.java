@@ -61,7 +61,7 @@ public class ListOfPlayersTable extends Table implements Data{
 
                 for(int count = 0; count < allPlayersList.size(); count++){
                     Player pl = (Player) allPlayersList.get(count);
-                    Object[] compareObj = {count + 1, pl.name, pl.club, pl.number, pl.natio,
+                    Object[] compareObj = {count + 1, pl.name, pl.team.name, pl.number, pl.natio,
                             Corrector.posInString(pl.position), pl.gkAble, pl.defAble, pl.midAble,
                             pl.forwAble, pl.captainAble, pl.isInjury, pl.trainingAble, pl.yearBirth,
                             pl.strategyPlace, pl.power, pl.tire, pl.timeBeforeTreat, pl.price};

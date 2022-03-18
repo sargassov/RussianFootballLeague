@@ -14,6 +14,7 @@ public class Market {
     private MarketType marketType;
     private GregorianCalendar startDate;
     private GregorianCalendar finishDate;
+    private double capacityCoeff;
 
     public Market() {}
 
@@ -22,6 +23,20 @@ public class Market {
         this.marketType = marketType;
         startDate = (GregorianCalendar) rfpl.currentDate;
         setFinishDate();
+
+        if(marketType.equals(MarketType.BILLBOARD)) capacityCoeff = 1.1;
+        else if(marketType.equals(MarketType.RADIO)) capacityCoeff = 1.25;
+        else if(marketType.equals(MarketType.INTERNET)) capacityCoeff = 1.5;
+        else capacityCoeff = 1.75;
+
+    }
+
+    public double getCapacityCoeff() {
+        return capacityCoeff;
+    }
+
+    public void setCapacityCoeff(double capacityCoeff) {
+        this.capacityCoeff = capacityCoeff;
     }
 
     private void setFinishDate() {
@@ -57,5 +72,9 @@ public class Market {
 
     public GregorianCalendar getStartDate() {
         return startDate;
+    }
+
+    public void closeMarketProgram() {
+        rfpl.myTeam.markets.remove(this);
     }
 }

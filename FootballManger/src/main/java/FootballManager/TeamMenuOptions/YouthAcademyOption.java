@@ -54,7 +54,7 @@ public class YouthAcademyOption implements TeamMenuOptionsInterface {
                     rfpl.myTeam.playerList.add(youngPlayer);
                     System.out.println(Corrector.getS(46) + "Choose a player number to new young player: ");
                     youngPlayer.number = Integer.parseInt(new PlayerEditorOption().guessNumber(rfpl));
-                    youngPlayer.club = rfpl.myTeam.name;
+                    youngPlayer.team = rfpl.myTeam;
                     rfpl.myTeam.wealth -= youngPlayer.price;
                     rfpl.youthPool.remove(places[choose]);
                     rfpl.wasAtTheYouthAcademy = true;
