@@ -17,6 +17,14 @@ public class VisualCalendar implements CalendarMenuOptionsInterface {
         System.out.print(Corrector.getS(40));
         Corrector.wordUpperCase("visual calendar menu\n\n");
         VisualCalendarTable.startMonthForVisualCalendar = 7;
+
+        while (true){
+            int size = rfpl.calendar.get(VisualCalendarTable.startMonthForVisualCalendar).size();
+            if(rfpl.calendar.get(VisualCalendarTable.startMonthForVisualCalendar - 7).get(size - 1).isPassed)
+                VisualCalendarTable.startMonthForVisualCalendar++;
+            else break;
+        }
+
         while(true){
             new VisualCalendarTable().toPrint(rfpl);
             System.out.println("\n\n\"0\" - To quit\n\"1\" - To look a prevoius month\n\"2\" - To look a next month\n" +

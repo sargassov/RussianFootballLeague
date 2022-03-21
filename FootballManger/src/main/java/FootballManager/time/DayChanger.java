@@ -30,9 +30,9 @@ public class DayChanger {
         setMarketingChanges();
         //setCoachSalary();
 
-//        for(String s: noteOfChanges){
-//            System.out.println(s);
-//        }
+        for(String s: noteOfChanges){
+            System.out.println(s);
+        }
 
 
     }
@@ -215,24 +215,12 @@ public class DayChanger {
 
     private static void addDate() {
 
-//        System.out.println("Current day = " + rfpl.currentDate.get(Calendar.DAY_OF_MONTH) + "." +
-//                rfpl.currentDate.get(Calendar.MONTH));
-//
-//        System.out.println("Current date = " + rfpl.currentDay.date.get(Calendar.DAY_OF_MONTH) + "." +
-//                rfpl.currentDay.date.get(Calendar.MONTH));
-
         rfpl.currentDay.isToday = false;
         rfpl.currentDay.isPassed = true;
         rfpl.currentDate.add(Calendar.DAY_OF_MONTH, 1);
         noteOfChanges.add("Today is a new day: " + rfpl.currentDate.get(Calendar.DAY_OF_MONTH) + "." +
                 Corrector.intInMonth(rfpl.currentDate.get(Calendar.MONTH)) +
                 "." + rfpl.currentDate.get(Calendar.YEAR));
-
-//        System.out.println("Current date = " + rfpl.currentDate.get(Calendar.DAY_OF_MONTH) + "." +
-//                rfpl.currentDate.get(Calendar.MONTH));
-//
-//        System.out.println("Current day = " + rfpl.currentDay.date.get(Calendar.DAY_OF_MONTH) + "." +
-//                rfpl.currentDay.date.get(Calendar.MONTH));
 
         for (ArrayList<Day> month : rfpl.calendar){
             for (Day day: month){
@@ -242,7 +230,6 @@ public class DayChanger {
 
                     rfpl.currentDay = day;
                     rfpl.currentDay.isToday = true;
-                    rfpl.currentDate = rfpl.currentDay.date;
 
                 }
             }

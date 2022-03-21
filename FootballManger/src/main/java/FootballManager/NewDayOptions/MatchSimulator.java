@@ -9,62 +9,103 @@ import java.util.Random;
 
 public class MatchSimulator {
 
-    private enum Result{
-        HOMEWIN,
-        VISITORWIN,
-        DRAW
-    }
-
     Random random = new Random();
 
     public void simulate(ArrayList<DayMatch> matchTour){
         for(DayMatch dayMatch: matchTour){
-            int probability = random.nextInt(10000);
 
-            if(true) winByForce(dayMatch);
+            Team homeTeam = dayMatch.home;
+            Team visitorTeam = dayMatch.away;
+
+            Integer probability = 0;
+            probability += ptsForHomeStadium();
+            probability += ptsForTeamForce(homeTeam, visitorTeam);
+            probability += ptsForStarPlayers(homeTeam, visitorTeam);
+            probability += ptsForInjuries(homeTeam, visitorTeam);
+            probability += ptsForCaptainProfi(homeTeam, visitorTeam);
+            System.out.println(probability);
+
+            //if(true) winByForce(dayMatch);
         }
+    }
+
+    private Integer ptsForCaptainProfi(Team homeTeam, Team visitorTeam) {
+        boolean homeTeamCapOnField;
+        boolean visitorTeamCapOnField;
+        int sumPts = 0;
+
+        homeTeamCapOnField = capOnFieldDetermining(homeTeam);
+        visitorTeamCapOnField = capOnFieldDetermining(visitorTeam);
+
+        if(homeTeamCapOnField && !visitorTeamCapOnField) return -10;
+        else if(!homeTeamCapOnField && visitorTeamCapOnField) return 10;
+        return 0;
+    }
+
+    private boolean capOnFieldDetermining(Team team) {
+        return team.playerList.stream()
+                .filter(p -> (p.strategyPlace > -1 && p.strategyPlace < 11))
+                .anyMatch(p -> p.isCapitan);
+    }
+
+    private Integer ptsForInjuries(Team homeTeam, Team visitorTeam) {
+        int homeTeamInj;
+        int visitorTeamInj;
+
+        homeTeamInj = (int) homeTeam.playerList.stream().filter(p -> p.isInjury).count();
+        visitorTeamInj = (int) visitorTeam.playerList.stream().filter(p -> p.isInjury).count();
+
+        if(homeTeamInj > 3 && visitorTeamInj < 3) return 10;
+        if(homeTeamInj > 5 && visitorTeamInj < 5) return 20;
+        if(homeTeamInj < 3 && visitorTeamInj > 3) return -10;
+        if(homeTeamInj < 5 && visitorTeamInj > 3) return -20;
+        else return 0;
+    }
+
+    private Integer ptsForStarPlayers(Team homeTeam, Team visitorTeam) {
+        boolean homeStarPlayersConsist;
+        boolean visitorStarPlayersConsist;
+
+        homeStarPlayersConsist = homeTeam.playerList.stream().anyMatch(p -> p.power > 90);
+        visitorStarPlayersConsist = visitorTeam.playerList.stream().anyMatch(p -> p.power > 90);
+
+        if(homeStarPlayersConsist && !visitorStarPlayersConsist) return -10;
+        if(!homeStarPlayersConsist && visitorStarPlayersConsist) return 10;
+        else return 0;
+    }
+
+    private Integer ptsForTeamForce(Team homeTeam, Team visitorTeam) {
+        int delta = visitorTeam.teamPower - homeTeam.teamPower;
+
+        if(delta > 5 && delta <= 10) return 6;
+        if(delta > 10 && delta <= 15) return 12;
+        if(delta > 15 && delta <= 20) return 25;
+        if(delta > 20) return 35;
+        if(delta > -10 && delta <= -5) return -6;
+        if(delta > -15 && delta <= -10) return -12;
+        if(delta > -20 && delta <= -15) return -25;
+        if(delta <= -21) return -35;
+        return 0;
+    }
+
+    private int ptsForHomeStadium() {
+        return -30;
     }
 
     private void winByForce(DayMatch dayMatch) {
-        if(dayMatch.home.teamPower > dayMatch.away.teamPower){winByOneTeam(dayMatch.home, dayMatch.away, Result.HOMEWIN, 3, 0, dayMatch);}
-        else if(dayMatch.home.teamPower < dayMatch.away.teamPower){winByOneTeam(dayMatch.away, dayMatch.home, Result.VISITORWIN, 3, 0, dayMatch);}
-        else {draw(dayMatch.home, dayMatch.away, 1, 1, dayMatch);}
-    }
 
-    private void winByOneTeam(Team winner, Team loser, Result result, int winnerScored, int loserScored, DayMatch dayMatch) {
-        winner.wins += 1;
-        winner.games += 1;
-        winner.goalScored += winnerScored;
-        winner.goalMissed += loserScored;
-        loser.defeats += 1;
-        loser.games += 1;
-        loser.goalScored += loserScored;
-        loser.goalMissed += winnerScored;
+        Team homeTeam = dayMatch.home;
+        Team visitorTeam = dayMatch.away;
+        int delta = homeTeam.teamPower - visitorTeam.teamPower;
 
-        if(result.equals(Result.HOMEWIN)){
-            dayMatch.homeScore = winnerScored;
-            dayMatch.awayScore = loserScored;
+        if(delta > -5 && delta < 5)
+            ResultSimulator.draw(homeTeam, visitorTeam, 1, 1, dayMatch);
+        else {
+            if(homeTeam.teamPower > visitorTeam.teamPower){ResultSimulator.winByOneTeam(homeTeam, visitorTeam, Result.HOMEWIN, 3, 0, dayMatch);}
+            else if(homeTeam.teamPower < visitorTeam.teamPower){ResultSimulator.winByOneTeam(visitorTeam, homeTeam, Result.VISITORWIN, 3, 0, dayMatch);}
         }
-        if(result.equals(Result.VISITORWIN)){
-            dayMatch.awayScore = winnerScored;
-            dayMatch.homeScore = loserScored;
-        }
-        dayMatch.itWas = true;
     }
 
-    private void draw(Team homeTeam, Team visitorTeam, int homeScored, int visitorScored, DayMatch dayMatch){
-        homeTeam.draws += 1;
-        homeTeam.games += 1;
-        homeTeam.goalScored += homeScored;
-        homeTeam.goalMissed += visitorScored;
-        visitorTeam.draws += 1;
-        visitorTeam.games += 1;
-        visitorTeam.goalScored += visitorScored;
-        visitorTeam.goalMissed += homeScored;
-        dayMatch.homeScore = homeScored;
-        dayMatch.awayScore = visitorScored;
-        dayMatch.itWas = true;
 
-    }
 
 }
