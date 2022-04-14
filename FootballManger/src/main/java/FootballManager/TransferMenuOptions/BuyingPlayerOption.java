@@ -79,7 +79,7 @@ public class BuyingPlayerOption implements TransferMenuOptionsInterface {
                 player.is11Th = false;
                 player.strategyPlace = -100;
                 rfpl.teams[alterTeam].playerList.remove(player);
-                player.club = rfpl.myTeam.name;
+                player.team = rfpl.myTeam;
                 System.out.println(player.name + " has just join in " + rfpl.myTeam.name + " from " +
                         rfpl.teams[alterTeam].name + " for " + player.price + " mln. EURO!\n" +
                         "Choose a player number: ");

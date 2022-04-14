@@ -2,6 +2,8 @@ package FootballManager.manager;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -113,6 +115,30 @@ public class Corrector {
         return number;
     }
 
+    public static int inputNumberFromTheList(ArrayList<Integer> list, boolean realCoefficient){
+        Scanner sc = new Scanner(System.in);
+        boolean isFound = false;
+        int number;
+        do {
+            while (!sc.hasNextInt()) {
+                System.out.println("\n\n\t\t\t\tYou weren't entered a number! Try again!\n\n");
+                sc.next();
+            }
+            number = sc.nextInt();
+            number--;
+            for(int s: list){
+                if(realCoefficient)  System.out.print((s + 1) + " ");
+                else System.out.println(s + " ");
+                if(number == s) {
+                    isFound = true;
+                    break;
+                }
+            }
+            if(!isFound) System.out.println("\n\n\t\t\t\tYou choosed an incorrect player! Try again!\n\n");
+        } while (!isFound);
+        return number;
+    }
+
     public static int inputIntFromTheList(ArrayList<Integer> list){
         Scanner sc = new Scanner(System.in);
         boolean isFound = false;
@@ -162,6 +188,57 @@ public class Corrector {
         return val;
     }
 
+    public static String priceInMillion(String s) {
+
+        if(s.equals("0") || s.equals("0.0") || s.equals("0.00")) return "0.00";
+        else if(s.length() < 7){
+            int zeroCounter = 6 - s.length();
+            String digit = "0.";
+            if(zeroCounter != 0) {
+                digit += "0";
+                if(zeroCounter > 1)
+                    return digit += "0";
+                else return digit += s.substring(0, 1);
+            }
+            else return digit += s.substring(0, 2);
+        }
+
+        int pointMover = s.length() - 6;
+        String result = s.substring(0, 5);
+        char[] chars = result.toCharArray();
+        chars[chars.length - 1] = '.';
+        for(int x = chars.length - 1; x > pointMover; x--){
+            char c = chars[x];
+            chars[x] = chars[x - 1];
+            chars[x - 1] = c;
+        }
+
+        result = chars.toString();
+        return result;
+    }
+
+    public static String priceInMillion(int i) {
+        String subStr = "" + i;
+        if(i == 0) return  "0.00";
+        else if (i < 1_000_000){
+            return  "0." + ("" + i).substring(0, 2);
+        }
+        subStr = subStr.substring(0, subStr.length() - 4);
+        subStr = (subStr.substring(0, subStr.length() - 2) + "." + subStr.substring(subStr.length() - 2));
+        return subStr;
+    }
+
+    public static String priceInMillion(long l) {
+        String subStr = "" + l;
+        if(l == 0) return  "0.00";
+        else if (l < 1_000_000){
+            return  "0." + ("" + l).substring(0, 2);
+        }
+        subStr = subStr.substring(0, subStr.length() - 4);
+        subStr = (subStr.substring(0, subStr.length() - 2) + "." + subStr.substring(subStr.length() - 2));
+        return subStr;
+    }
+
     public static String Inspacer4Sym(String word){
         int len = 4 - word.length();
         String newWord = new String(word.toCharArray());
@@ -209,4 +286,23 @@ public class Corrector {
         } while(!freeNumbers.contains(number));
         return (int) number;
     }
+
+    public static String intInMonth(int month){
+
+        List<String> listMonth = new ArrayList<>(Arrays.asList(
+                "January", "February", "March", "April", "May", "June", "July",
+                "August", "September", "October", "November", "December"
+        ));
+        return listMonth.get(month);
+    }
+
+    public static String stringStapler(String[] mass){
+        StringBuilder answer = new StringBuilder("");
+        for(String s: mass){
+            answer.append(s + "|");
+        }
+        return answer.toString();
+    }
 }
+
+

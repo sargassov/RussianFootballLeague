@@ -131,6 +131,7 @@ public class Strategy {
             if (selectionPlayer != null && !findEqualStrategyPlace(y, teams[i].playerList)) {
                 selectionPlayer.is11Th = true;
                 selectionPlayer.strategyPlace = y;
+//                selectionPlayer.club.
 
             }
 
@@ -152,6 +153,7 @@ public class Strategy {
     public static void capitanDeterminer() {
         int captainVal = -1;
         for(Team team : rfpl.teams){
+            System.out.println("playerList = " + team.playerList.size());
             Player capitan = team.playerList.get(0);
             for (Player player : team.playerList) {
                 if(player.captainAble > captainVal){

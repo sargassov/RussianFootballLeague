@@ -13,7 +13,7 @@ import java.util.List;
 public class StadiumInfoTable extends Table implements Data{
 
     private static Tournament rfpl;
-    private static final String stadiumInfoPath = "src/textFiles/stadiumInfo.txt";
+    private static final String stadiumInfoPath = "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\stadiumInfo.txt";
     private static final String STADIUM_INFO_FILE_NOT_FOUND = "STADIUM INFO FILE NOT FOUND";
     private List<String> stadiumInfoList;
 
@@ -56,7 +56,7 @@ public class StadiumInfoTable extends Table implements Data{
 
                     else{ tech = "" + (double)stadInfoCompareArr[y]; }
 
-                    mass[3] = Corrector.wordToCenter(tech, LINELENGTH25);
+                    mass[3] = Corrector.wordToCenter(tech, mass[3].length());
                     stadiumInfoList.set(x, "");
 
                     for (int i = 0; i < mass.length; i++) {

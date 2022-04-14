@@ -8,21 +8,21 @@ import FootballManager.manager.Tournament;
 import java.util.ArrayList;
 
 public class ListPlayerOptionSorts {
-    public static void sort(Tournament rfpl, int choise) {
+    public static void sort(ArrayList<Player> playerList, int choise) {
         int size;
-        for(int x = 0; x < rfpl.myTeam.playerList.size() - 1; x++){
-            for(int y = 0; y < rfpl.myTeam.playerList.size() - x - 1; y++){
-                String field1 = chooseStringField(rfpl.myTeam.playerList, y, choise);
-                String field2 = chooseStringField(rfpl.myTeam.playerList, y + 1, choise);
+        for(int x = 0; x < playerList.size() - 1; x++){
+            for(int y = 0; y < playerList.size() - x - 1; y++){
+                String field1 = chooseStringField(playerList, y, choise);
+                String field2 = chooseStringField(playerList, y + 1, choise);
                 char[] first = field1.toCharArray();
                 char[] second = field2.toCharArray();
                 if(field1.length() < field2.length()){ size = field1.length(); }
                 else size = field2.length();
                 for(int z = 0; z < size; z++){
                     if(first[z] > second[z]){
-                        Player temp = rfpl.myTeam.playerList.get(y);
-                        rfpl.myTeam.playerList.set(y, rfpl.myTeam.playerList.get(y + 1));
-                        rfpl.myTeam.playerList.set(y + 1, temp);
+                        Player temp = playerList.get(y);
+                        playerList.set(y, playerList.get(y + 1));
+                        playerList.set(y + 1, temp);
                         break;
                     }
                     else if (first[z] < second[z]){
@@ -33,58 +33,58 @@ public class ListPlayerOptionSorts {
         }
     }
 
-    public static void sort(Tournament rfpl, int choise, int difParametr) {
-        for(int x = 0; x < rfpl.myTeam.playerList.size() - 1; x++){
-            for(int y = 0; y < rfpl.myTeam.playerList.size() - x - 1; y++){
-                int first = chooseintField(rfpl.myTeam.playerList, y, choise);
-                int second = chooseintField(rfpl.myTeam.playerList, y + 1, choise);
+    public static void sort(ArrayList<Player> playerList, int choise, int difParametr) {
+        for(int x = 0; x < playerList.size() - 1; x++){
+            for(int y = 0; y < playerList.size() - x - 1; y++){
+                int first = chooseintField(playerList, y, choise);
+                int second = chooseintField(playerList, y + 1, choise);
                 if(choise == 3) { if(first <= second) continue; }
                 else { if(first >= second) continue; }
-                Player temp = rfpl.myTeam.playerList.get(y);
-                rfpl.myTeam.playerList.set(y, rfpl.myTeam.playerList.get(y + 1));
-                rfpl.myTeam.playerList.set(y + 1, temp);
+                Player temp = playerList.get(y);
+                playerList.set(y, playerList.get(y + 1));
+                playerList.set(y + 1, temp);
             }
         }
     }
 
-    public static void sort(Tournament rfpl, boolean difParametr){
-        for(int x = 0; x < rfpl.myTeam.playerList.size() - 1; x++){
-            for(int y = 0; y < rfpl.myTeam.playerList.size() - x - 1; y++){
-                if(! (rfpl.myTeam.playerList.get(y).isInjury) && rfpl.myTeam.playerList.get(y + 1).isInjury){
-                    Player temp = rfpl.myTeam.playerList.get(y);
-                    rfpl.myTeam.playerList.set(y, rfpl.myTeam.playerList.get(y + 1));
-                    rfpl.myTeam.playerList.set(y + 1, temp);
+    public static void sort(ArrayList<Player> playerList, boolean difParametr){
+        for(int x = 0; x < playerList.size() - 1; x++){
+            for(int y = 0; y < playerList.size() - x - 1; y++){
+                if(! (playerList.get(y).isInjury) && playerList.get(y + 1).isInjury){
+                    Player temp = playerList.get(y);
+                    playerList.set(y, playerList.get(y + 1));
+                    playerList.set(y + 1, temp);
                 }
             }
         }
 
     }
 
-    public static void sort(Tournament rfpl) {
-        for(int x = 0; x < rfpl.myTeam.playerList.size() - 1; x++){
-            for(int y = 0; y < rfpl.myTeam.playerList.size() - x - 1; y++){
-                if(rfpl.myTeam.playerList.get(y).strategyPlace == -100){
-                    Player temp = rfpl.myTeam.playerList.get(y);
-                    rfpl.myTeam.playerList.set(y, rfpl.myTeam.playerList.get(y + 1));
-                    rfpl.myTeam.playerList.set(y + 1, temp);
+    public static void sort(ArrayList<Player> playerList) {
+        for(int x = 0; x < playerList.size() - 1; x++){
+            for(int y = 0; y < playerList.size() - x - 1; y++){
+                if(playerList.get(y).strategyPlace == -100){
+                    Player temp = playerList.get(y);
+                    playerList.set(y, playerList.get(y + 1));
+                    playerList.set(y + 1, temp);
                 }
-                else if((rfpl.myTeam.playerList.get(y).strategyPlace > rfpl.myTeam.playerList.get(y + 1).strategyPlace) &&
-                        rfpl.myTeam.playerList.get(y).strategyPlace != -100 && rfpl.myTeam.playerList.get(y + 1).strategyPlace != -100){
-                    Player temp = rfpl.myTeam.playerList.get(y);
-                    rfpl.myTeam.playerList.set(y, rfpl.myTeam.playerList.get(y + 1));
-                    rfpl.myTeam.playerList.set(y + 1, temp);
+                else if((playerList.get(y).strategyPlace > playerList.get(y + 1).strategyPlace) &&
+                        playerList.get(y).strategyPlace != -100 && playerList.get(y + 1).strategyPlace != -100){
+                    Player temp = playerList.get(y);
+                    playerList.set(y, playerList.get(y + 1));
+                    playerList.set(y + 1, temp);
                 }
             }
         }
     }
 
-    public static void sort(Tournament rfpl, double difParametr) {
-        for(int x = 0; x < rfpl.myTeam.playerList.size() - 1; x++){
-            for(int y = 0; y < rfpl.myTeam.playerList.size() - x - 1; y++){
-                if(rfpl.myTeam.playerList.get(y).price < rfpl.myTeam.playerList.get(y + 1).price){
-                    Player temp = rfpl.myTeam.playerList.get(y);
-                    rfpl.myTeam.playerList.set(y, rfpl.myTeam.playerList.get(y + 1));
-                    rfpl.myTeam.playerList.set(y + 1, temp);
+    public static void sort(ArrayList<Player> playerList, double difParametr) {
+        for(int x = 0; x < playerList.size() - 1; x++){
+            for(int y = 0; y < playerList.size() - x - 1; y++){
+                if(playerList.get(y).price < playerList.get(y + 1).price){
+                    Player temp = playerList.get(y);
+                    playerList.set(y, playerList.get(y + 1));
+                    playerList.set(y + 1, temp);
                 }
             }
         }

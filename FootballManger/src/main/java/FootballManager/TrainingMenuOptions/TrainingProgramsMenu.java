@@ -29,17 +29,17 @@ public class TrainingProgramsMenu implements TrainingMenuOptionsInterface {
                 int choise = Corrector.inputIntMethod(0, rfpl.myTeam.coaches.size());
                 if(choise == 0) return;
                 if(choise != 1){
-                    if(rfpl.myTeam.coaches.get(--choise).playerOnTrain != null) {
+                    if(rfpl.myTeam.coaches.get(--choise).getPlayerOnTrain() != null) {
                         System.out.println("\n\n" + Corrector.getS(24) +
-                                "Choose a level of intensity of training of " + rfpl.myTeam.coaches.get(choise).name + " (" +
-                                rfpl.myTeam.coaches.get(choise).playerOnTrain.name + ") " +
+                                "Choose a level of intensity of training of " + rfpl.myTeam.coaches.get(choise).getName() + " (" +
+                                rfpl.myTeam.coaches.get(choise).getPlayerOnTrain().name + ") " +
                                 "\n" +  Corrector.getS(54) + "\"1\" - Standart" +
                                 "\n" +  Corrector.getS(54) + "\"2\" - Hard" +
                                 "\n" +  Corrector.getS(54) + "\"3\" - Intensive");
                         int choise2 = Corrector.inputIntMethod(1, 3);
-                        if(choise2 == 1) rfpl.myTeam.coaches.get(choise).currentCoachProgram = CoachProgram.STANDART;
-                        else if(choise2 == 2) rfpl.myTeam.coaches.get(choise).currentCoachProgram = CoachProgram.HARD;
-                        else rfpl.myTeam.coaches.get(choise).currentCoachProgram = CoachProgram.INTENSIVE;
+                        if(choise2 == 1) rfpl.myTeam.coaches.get(choise).setCurrentCoachProgram(CoachProgram.STANDART);
+                        else if(choise2 == 2) rfpl.myTeam.coaches.get(choise).setCurrentCoachProgram(CoachProgram.HARD);
+                        else rfpl.myTeam.coaches.get(choise).setCurrentCoachProgram(CoachProgram.INTENSIVE);
                         break;
                     }
                     else{
@@ -47,7 +47,7 @@ public class TrainingProgramsMenu implements TrainingMenuOptionsInterface {
                     }
                 }
                 else System.out.println("\n\n" + Corrector.getS(47)
-                        + rfpl.myTeam.coaches.get(0).name + " can't be a coach\n\n");
+                        + rfpl.myTeam.coaches.get(0).getName() + " can't be a coach\n\n");
 
 
             }
@@ -59,7 +59,7 @@ public class TrainingProgramsMenu implements TrainingMenuOptionsInterface {
 
     private static boolean isCoachHavePlayerToCoachMETHOD(Tournament rfpl){
         for(Coach c : rfpl.myTeam.coaches){
-            if(!(c instanceof Manager) && c.playerOnTrain != null){
+            if(!(c instanceof Manager) && c.getPlayerOnTrain() != null){
                 return true;
             }
         }
@@ -68,8 +68,8 @@ public class TrainingProgramsMenu implements TrainingMenuOptionsInterface {
 
 
     private static String coachProgramToString(Coach coach){
-        if(coach.currentCoachProgram == CoachProgram.STANDART){return "Standart"; }
-        else if(coach.currentCoachProgram == CoachProgram.HARD){return "Hard"; }
+        if(coach.getCurrentCoachProgram() == CoachProgram.STANDART){return "Standart"; }
+        else if(coach.getCurrentCoachProgram() == CoachProgram.HARD){return "Hard"; }
         else {return "Intensive"; }
     }
 
@@ -78,8 +78,8 @@ public class TrainingProgramsMenu implements TrainingMenuOptionsInterface {
         int x = 1;
         for(Coach c : rfpl.myTeam.coaches){
             if(!(c instanceof Manager)){
-                if(c.playerOnTrain != null){
-                    System.out.println(Corrector.getS(35) + x + "\t" + c.name + "\t(" + c.playerOnTrain.name + ")\t" +
+                if(c.getPlayerOnTrain() != null){
+                    System.out.println(Corrector.getS(35) + x + "\t" + c.getName() + "\t(" + c.getPlayerOnTrain().name + ")\t" +
                             coachProgramToString(c));
                 }
             }

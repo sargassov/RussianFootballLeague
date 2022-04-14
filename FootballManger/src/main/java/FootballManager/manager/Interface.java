@@ -18,14 +18,15 @@ public class Interface {
     private static Tournament rfpl;
     public List<String> fields;
     private final static String[] pathArr = {"FootballManger\\src\\main\\java\\FootballManager\\textFiles\\GameMenuInterface.txt",
-            "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\TECH.txt",
+            "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\newDayInterface.txt",
             "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\TeamInterface.txt",
             "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\TrainingInterface.txt",
             "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\TransferInterface.txt",
             "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\CalendarInterface.txt",
             "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\financeMenu.txt",
             "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\stadiumInterface.txt",
-            "src\\textFiles\\TECH.txt", "src\\textFiles\\TECH.txt"};
+            "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\LeagueInterface.txt",
+            "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\cheatCodeInterface.txt"};
 
     public Interface(){}
 

@@ -146,6 +146,11 @@ public class FootballCalendar implements Cloneable {
 
         calendarPrinting();
 
+        rfpl.currentDay = rfpl.calendar.get(0).get(0);
+        rfpl.currentDay.isToday = true;
+        rfpl.currentDate = (Calendar) rfpl.currentDay.date.clone();
+        rfpl.startDate = (GregorianCalendar) currentDate.clone();
+
     }
 
     private static void calendarPrinting() {
@@ -154,7 +159,7 @@ public class FootballCalendar implements Cloneable {
                 //out.print(day.toString());
                 if (day instanceof DayMatch) {
                     DayMatch dm = (DayMatch) day;
-                    System.out.println(dm.toString());
+                    System.out.println(dm.toString() + "AAA");
                 } else {
                     DayTrain dt = (DayTrain) day;
                     System.out.println(dt.toString());
@@ -208,7 +213,7 @@ public class FootballCalendar implements Cloneable {
             if (day.date.get(Calendar.DAY_OF_MONTH) == tour.get(0).date.get(Calendar.DAY_OF_MONTH) &&
                     day.date.get(Calendar.MONTH) == tour.get(0).date.get(Calendar.MONTH)) {
                 for (DayMatch match : tour) {
-                    if (match.home.equals(rfpl.myTeam.name) || match.away.equals(rfpl.myTeam.name)) {
+                    if (match.home.equals(rfpl.myTeam) || match.away.equals(rfpl.myTeam)) {
                         day = match;
                         day.MatchParameter = true;
                     }

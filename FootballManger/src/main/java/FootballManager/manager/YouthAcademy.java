@@ -23,7 +23,7 @@ public class YouthAcademy {
         for(Position pos : posList){
             for (Player player : rfpl.youthPool){
                 if(player.position.equals(pos)){
-                    player.club = team.name;
+                    player.team = team;
                     player.number = Player.YouthNumberCorrector(team.playerList);
                     rfpl.youthPool.remove(player);
                     team.playerList.add(player);

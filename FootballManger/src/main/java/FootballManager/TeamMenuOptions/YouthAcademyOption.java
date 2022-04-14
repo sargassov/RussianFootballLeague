@@ -35,7 +35,7 @@ public class YouthAcademyOption implements TeamMenuOptionsInterface {
             places[x] = rand;
             youthPlace.add(player);
             System.out.println(Corrector.getS(41) + (x+1) + ".\t" + tech + "\t" + tech2 + "\t(" +
-                    player.power + ")\t" + player.price + "\n");
+                    player.power + ")\t" + Corrector.priceInMillion(player.price) + "\n");
         }
         System.out.println(Corrector.getS(50) +
                 "Choose a player to add in your club.\n" +
@@ -50,11 +50,12 @@ public class YouthAcademyOption implements TeamMenuOptionsInterface {
                         "\n" + Corrector.getS(62) + "0 - \"No\": ");
                 int anotherChoose = Corrector.inputIntMethod(0, 1);
                 if(anotherChoose == 1){
-                    rfpl.myTeam.playerList.add(youthPlace.get(choose));
+                    Player youngPlayer = youthPlace.get(choose);
+                    rfpl.myTeam.playerList.add(youngPlayer);
                     System.out.println(Corrector.getS(46) + "Choose a player number to new young player: ");
-                    rfpl.myTeam.playerList.get(rfpl.myTeam.playerList.size() - 1).number =
-                            Integer.parseInt(new PlayerEditorOption().guessNumber(rfpl));
-                    rfpl.myTeam.wealth -= youthPlace.get(choose).price;
+                    youngPlayer.number = Integer.parseInt(new PlayerEditorOption().guessNumber(rfpl));
+                    youngPlayer.team = rfpl.myTeam;
+                    rfpl.myTeam.wealth -= youngPlayer.price;
                     rfpl.youthPool.remove(places[choose]);
                     rfpl.wasAtTheYouthAcademy = true;
 

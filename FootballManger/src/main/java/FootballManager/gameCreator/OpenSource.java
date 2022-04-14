@@ -13,15 +13,15 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Phaser;
+import java.util.stream.Collectors;
 
 public class OpenSource {
 
-    private volatile Tournament rfpl;
+    private Tournament rfpl;
     private ExecutorService service;
     private Phaser phaser;
 
@@ -203,8 +203,16 @@ public class OpenSource {
                     int x = 0;
                     for(String line : lines){
                         rfpl.teams[x] = new Team(line, rfpl);
+                        System.out.println(x + "." + rfpl.teams[x].name);
                         ++x;
                     }
+
+                    Arrays.sort(rfpl.teams, new Comparator<Team>() {
+                        @Override
+                        public int compare(Team o1, Team o2) {
+                            return o1.name.compareTo(o2.name);
+                        }
+                    });
 
                 } catch (IOException e) {
                     System.out.println(CLUBS_FILE_NOT_FOUND);
@@ -237,12 +245,17 @@ public class OpenSource {
                     for(String line : lines){
                         Player player = new Player(line);
                         for(Team t : rfpl.teams){
-                            if(t.name.equals(player.club)){
+                            if(t.name.equals(player.team.name)){
                                 t.playerList.add(player);
                                 break;
                             }
                         }
                     }
+
+                    for(Team t : rfpl.teams){
+                        t.playerList.sort(Comparator.comparing(o -> o.name));
+                    }
+
                 } catch (IOException e) {
                     System.out.println(PLAYERS_FILE_NOT_FOUND);
                     e.printStackTrace();

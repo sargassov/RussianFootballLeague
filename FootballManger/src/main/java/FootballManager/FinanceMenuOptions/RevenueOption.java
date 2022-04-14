@@ -28,7 +28,11 @@ public class RevenueOption implements FinanceMenuOptionsInterface {
 
     }
 
-    private void tryToChangeSponsor() {
+    public static void setRfpl(Tournament rfpl) {
+        RevenueOption.rfpl = rfpl;
+    }
+
+    public void tryToChangeSponsor() {
         if(rfpl.myTeam.changeSponsor){
             System.out.println("\n\n\n" + Corrector.getS(sVal) + "You can't change sponsor again!\n\n\n");
             try {

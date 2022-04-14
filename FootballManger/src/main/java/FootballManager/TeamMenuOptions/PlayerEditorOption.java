@@ -72,7 +72,8 @@ public class PlayerEditorOption implements TeamMenuOptionsInterface {
 
     private void playerCreator (Tournament rfpl, String line){
         Player player = new Player(line);
-        System.out.println("\t\t\t\tYou were created a new player " + player.name + ". Price for this player is: " + player.price);
+        System.out.println("\t\t\t\tYou were created a new player " + player.name + ". Price for this player is: "
+                + player.price + " Euro.");
         if(rfpl.myTeam.wealth >= player.price){
             System.out.println("\n\n\t\t\t\t\t\tDo you want to buy this player\n\t\t\t\t\t\t\"1\" - Yes\n\t\t\t\t\t\t\"0\" - No");
             int choise = Corrector.inputIntMethod(0, 1);

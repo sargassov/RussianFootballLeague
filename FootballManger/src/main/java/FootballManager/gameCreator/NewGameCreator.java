@@ -17,9 +17,10 @@ public class NewGameCreator {
     }
 
 
-    public void createGame() throws IOException {
+    public void createGame() throws IOException, InterruptedException {
 
         new OpenSource(rfpl).unpack();
+        Thread.sleep(400);
 
         Strategy.strategyCreator(rfpl);
         Strategy.autoStrategyCreator();

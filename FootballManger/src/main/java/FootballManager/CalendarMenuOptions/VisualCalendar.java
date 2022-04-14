@@ -17,6 +17,14 @@ public class VisualCalendar implements CalendarMenuOptionsInterface {
         System.out.print(Corrector.getS(40));
         Corrector.wordUpperCase("visual calendar menu\n\n");
         VisualCalendarTable.startMonthForVisualCalendar = 7;
+
+        while (true){
+            int size = rfpl.calendar.get(VisualCalendarTable.startMonthForVisualCalendar).size();
+            if(rfpl.calendar.get(VisualCalendarTable.startMonthForVisualCalendar - 7).get(size - 1).isPassed)
+                VisualCalendarTable.startMonthForVisualCalendar++;
+            else break;
+        }
+
         while(true){
             new VisualCalendarTable().toPrint(rfpl);
             System.out.println("\n\n\"0\" - To quit\n\"1\" - To look a prevoius month\n\"2\" - To look a next month\n" +
@@ -51,8 +59,8 @@ public class VisualCalendar implements CalendarMenuOptionsInterface {
         Day day = rfpl.calendar.get(highBorderValueOfDays).get(choise - 1);
         System.out.println(day.date.get(Calendar.DAY_OF_MONTH) + " of " + curMonth);
         if(day instanceof DayMatch){
-            System.out.println("There will be a match this day " + ((DayMatch) day).home + " "
-            + ((DayMatch) day).away + " at stadium " + ((DayMatch) day).stadium);
+            System.out.println("There will be a match this day " + ((DayMatch) day).home.name + " "
+            + ((DayMatch) day).away.name + " at stadium " + ((DayMatch) day).stadium.getTitle());
         }
         else if(day instanceof DayTrain){
             System.out.println("There will be a train this day ");

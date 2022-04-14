@@ -3,6 +3,7 @@ package FootballManager.Tables;
 
 import FootballManager.manager.Corrector;
 import FootballManager.manager.Player;
+import FootballManager.manager.Team;
 import FootballManager.manager.Tournament;
 
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListOfPlayersTable extends Table implements Data{
@@ -19,8 +21,14 @@ public class ListOfPlayersTable extends Table implements Data{
     private final String listOfPlayersTablePath = "FootballManger\\src\\main\\java\\FootballManager\\textFiles\\listOfPlayersTable.txt";
     private final static String LIST_OF_PLAYERS_TABLES_FILE_NOT_FOUND = "LIST OF PLAYERS TABLES FILE NOT FOUND";
     private List<String> listOfPlayersTableList;
+    private boolean allPlayersToView;
+    private List allPlayersList;
 
-    public ListOfPlayersTable(){
+    public ListOfPlayersTable(boolean allPlayersToView, ArrayList<Player> allPlayerList){
+
+        this.allPlayersToView = allPlayersToView;
+        this.allPlayersList = allPlayerList;
+
         Path path = Paths.get(listOfPlayersTablePath);
         if(Files.exists(path)){
             try {
@@ -42,35 +50,40 @@ public class ListOfPlayersTable extends Table implements Data{
 
             String[] mass = listOfPlayersTableList.get(x).split("/");
             if(x == 1){
-                mass[1] = Corrector.wordToCenter("P L A Y E R S  " +
-                        " O F  " + rfpl.myTeam.nameOfTeamInRegister(), LINELENGTH118);
+                if(!allPlayersToView)
+                    mass[1] = Corrector.wordToCenter("P L A Y E R S  " +
+                        " O F  " + rfpl.myTeam.nameOfTeamInRegister(), mass[1].length());
+                else {
+                    mass[1] = Corrector.wordToCenter("A L L  P L A Y E R S  ", mass[1].length());
+                }
             }
             else if(x == 5){
 
-                for(int count = 0; count < rfpl.myTeam.playerList.size(); count++){
-                    Player pl = rfpl.myTeam.playerList.get(count);
-                    Object[] compareObj = {count + 1, pl.name, pl.number, pl.natio,
+                for(int count = 0; count < allPlayersList.size(); count++){
+                    Player pl = (Player) allPlayersList.get(count);
+                    Object[] compareObj = {count + 1, pl.name, pl.team.name, pl.number, pl.natio,
                             Corrector.posInString(pl.position), pl.gkAble, pl.defAble, pl.midAble,
                             pl.forwAble, pl.captainAble, pl.isInjury, pl.trainingAble, pl.yearBirth,
                             pl.strategyPlace, pl.power, pl.tire, pl.timeBeforeTreat, pl.price};
 
 
-                    for(int y = 0; y < 18; y++){
-                        if(y == 1 || y == 3 || y == 4){
+                    for(int y = 0; y < 19; y++){
+                        if(y == 1 || y == 2 || y == 4 || y == 5){
                             mass[y + 1] = Corrector.wordToCenter((String) compareObj[y], mass[y + 1].length());
                         }
-                        else if(y == 10){
+                        else if(y == 11){
                             booleanIntoTable(compareObj[y], mass, y);
                         }
-                        else if(y == 13){
+                        else if(y == 14){
                             mass[y + 1] = pl.strategyPlaceInPosition();
                         }
-                        else if(y == 17){
-                            mass[y + 1] = Corrector.wordToCenter("" + compareObj[y], mass[y + 1].length());
+                        else if(y == 18){
+                            mass[y + 1] = Corrector.wordToCenter("" + Corrector.priceInMillion((int)compareObj[y]), mass[y + 1].length());
                         }
                         else  {
                             mass[y + 1] = Corrector.wordToCenter("" + (int)compareObj[y], mass[y + 1].length());
                         }
+
                     }
                     constructAndWrite(mass, x);
                 }

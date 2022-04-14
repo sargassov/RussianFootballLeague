@@ -6,5 +6,6 @@
              /--4--/Team's Transfer expenses                                      /          /
              /--5--/Team's Personal expenses                                      /          /
              /--6--/Team's Stadium renewed expenses                               /          /
-             /--7--/Proficit(+) Deficit(-)                                        /          /
+             /--7--/Teams Market expenses                                         /          /
+             /--8--/Proficit(+) Deficit(-)                                        /          /
              ---------------------------------------------------------------------------------

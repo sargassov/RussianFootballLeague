@@ -100,12 +100,13 @@ Leschuk Igor/1996/Rus/Dinamo/Gk/67/5/7/8/3.0/4/31
 Sheidaev Ramil/1996/Aze/Dinamo/Forw/9/29/29/65/2.8/2/99
 Hillemark Oskar/1992/Swe/Dinamo/Mid/3/22/73/14/3.1/7/88
 Grulyov Vyacheslav/1999/Rus/Dinamo/Mid/9/26/73/10/3.5/7/19
-Komlichenko Nikolay/1995/Rus/Dinamo/Forw/5/81/22/33/9.2/12/21
+Komlichenko Nikolay/1995/Rus/Dinamo/Forw/5/11/22/83/9.2/12/21
 Cardoso Miguel/1994/Por/Dinamo/Mid/7/25/79/31/7.1/3/7
 Novoseltsev Ivan/1991/Rus/Dinamo/Def/4/71/10/26/4.1/8/25
-Aziz Tetteh/1990/Gha/Dinamo/Mid/4/61/27/23/2.2/6/12
-Kalinin Igor/1995/Ukr/Dinamo/Def/1/78/16/30/4.0/7/95
+Aziz Tetteh/1990/Gha/Dinamo/Mid/4/21/67/23/2.2/6/12
 Sow Samba/1998/Mli/Dinamo/Mid/3/25/68/20/3.2/7/27
+Zakharyan Arsen/2003/Rus/Dinamo/Mid/1/11/84/62/3.2/11/47
+Tyukavin Konstantin/2002/Rus/Dinamo/Forw/3/4/43/80/3.2/7/70
 Petrov Sergey/1991/Rus/Krasnodar/Def/5/79/23/33/7.6/12/98
 Ramirez Cristian/1994/Ecu/Krasnodar/Def/5/78/23/33/7.5/1/6
 de Vilhena Tonny/1995/Ned/Krasnodar/Mid/1/32/81/24/8.1/6/52
@@ -133,7 +134,7 @@ Remy Cabella/1990/Fra/Krasnodar/Mid/2/25/77/28/5.7/5/7
 Chernikov Alexandr/2000/Rus/Krasnodar/Mid/7/20/69/15/3.2/1/53
 Silva Kaio/1995/Bra/Krasnodar/Mid/4/25/68/17/3.4/8/17
 Onugkha German/1996/Rus/Krasnodar/Mid/1/28/68/23/3.5/6/60
-Sergeyev Nikita/1999/Rus/Krasnodar/Mid/8/64/10/20/3.1/5/63
+Sergeyev Nikita/1999/Rus/Krasnodar/Mid/8/10/64/20/3.1/5/63
 Karpov Maxim/1995/Rus/Krylia Sovetov/Def/2/77/21/33/4.3/1/50
 Ryzhikov Sergey/1980/Rus/Krylia Sovetov/Gk/76/3/2/1/3.1/78/1
 Chernov Nikita/1996/Rus/Krylia Sovetov/Def/4/72/31/32/3.6/1/3
@@ -148,7 +149,7 @@ Timofeev Artem/1994/Rus/Krylia Sovetov/Mid/7/31/68/33/3.1/2/40
 Paul Anton/1991/Rom/Krylia Sovetov/Mid/8/33/70/22/4.1/6/28
 Poluyahtov Vladimir/1989/Rus/Krylia Sovetov/Def/2/74/13/30/3.3/45/2
 Dejan Radonjic/1990/Cro/Krylia Sovetov/Forw/9/23/29/74/4.2/2/9
-Radu Ginsari/1991/Mdv/Krylia Sovetov/Mid/1/72/19/23/3.8/1/14
+Radu Ginsari/1991/Mdv/Krylia Sovetov/Mid/1/19/72/23/3.8/1/14
 Burlak Taras/1900/Rus/Krylia Sovetov/Def/5/70/33/20/3.0/9/90
 Terekhov Anton/1998/Rus/Krylia Sovetov/Mid/8/27/76/16/3.3/5/10
 Mehdi Zeffane/1992/Alg/Krylia Sovetov/Def/4/62/32/21/2.9/4/2
@@ -374,7 +375,7 @@ Kucharczyk Michal/1991/Pol/Ural/Mid/1/21/77/12/3.9/1/18
 Bavin Yuri/1994/Rus/Ural/Mid/5/22/71/16/3.5/6/14
 Pogrebnyak Pavel/1983/Rus/Ural/Forw/3/29/21/77/3.2/68/88
 Fidler Artem/1983/Rus/Ural/Mid/3/23/73/30/3.2/72/57
-Wilusz Maciej/1988/Pol/Ural/Def/9/24/69/21/3.4/3/5
+Wilusz Maciej/1988/Pol/Ural/Def/9/69/24/21/3.4/3/5
 Zolotov Nikolay/1994/Blr/Ural/Def/5/75/10/30/3.8/4/35
 Baklov Oleg/1994/Rus/Ural/Gk/68/1/2/2/3.5/1/77
 Nasyrov Islamzhan/1998/Rus/Ural/Def/5/74/30/21/3.9/4/21

@@ -1,0 +1,10 @@
+             |  N  |                      Build New Sectors                       |Capacity |
+             |-----|--------------------------------------------------------------|---------|
+             /--1--/Full Capacity                                                 /         /
+             --------------------------------------------------------------------------------
+
+                                                 MENU:
+
+                 To add a some new sectors you must pay 1M for every 1000 sitting places
+
+                              HOW MANY SITTING PLACES YOU WANT TO ADD?

@@ -65,16 +65,16 @@ public class TeamTacticOption implements TeamMenuOptionsInterface {
                     if(player.position.equals(allReplacement.position)){
                         numbersToChoose.add(currentPlayerInTeam);
                         System.out.println(currentPlayerInTeam + 1 + "\t\t" + Corrector.inspacer(player.name) + player.natio + "\t\t" + player.number +
-                                "\t" + player.position + "\t\t" + player.gkAble + "\t" + player.defAble + "\t" +
+                                "\t" + Corrector.posInString(player.position) + "\t\t" + player.gkAble + "\t" + player.defAble + "\t" +
                                 player.midAble + "\t" + player.forwAble + "\t\t" + player.captainAble + "\t" +
-                                player.yearBirth + "\t" + player.price);
+                                player.yearBirth + "\t" + Corrector.priceInMillion(player.price));
                     }
                 }
                 currentPlayerInTeam++;
             }
-            System.out.println("\nEnter a count number to edi" +
-                    "t a " + allReplacement.position + ": ");
-            int count = Corrector.inputNumberFromTheList(numbersToChoose);
+            System.out.println("\nEnter a count number to edit" +
+                    " a " + allReplacement.position + ": ");
+            int count = Corrector.inputNumberFromTheList(numbersToChoose, true);
             rfpl.myTeam.playerList.get(count).strategyPlace = (int)currentPosition;
             if (currentPosition < 11) {
                 rfpl.myTeam.teamPower += rfpl.myTeam.playerList.get(count).power;

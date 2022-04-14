@@ -5,31 +5,35 @@ import FootballManager.coaches.Coach;
 import FootballManager.coaches.Manager;
 import FootballManager.finance.Bank;
 import FootballManager.finance.Sponsor;
+import FootballManager.markets.Market;
 import FootballManager.strategies.Strategy;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Team {
     public String name;
     public String town;
     public Stadium stadium;
-    public short games = 0;
-    public short wins = 0;
-    public short draws = 0;
-    public short defeats = 0;
-    public short goalScored = 0;
-    public short goalMissed = 0;
-    public short teamPower = 0;
+    public int games = 0;
+    public int wins = 0;
+    public int draws = 0;
+    public int defeats = 0;
+    public int goalScored = 0;
+    public int goalMissed = 0;
+    public int teamPower = 0;
     public int capacityStad = 0;
     public int temporaryTicketCost = 60;
     public int regularCapacity;
     public ArrayList<Coach> coaches = new ArrayList<Coach>();
     public ArrayList<Bank>loans = new ArrayList<>();
-    public double wealth;
-    public double startWealth;
-    public double transferExpenses;
-    public double personalExpenses;
+    public long wealth;
+    public final long startWealth;
+    public long transferExpenses;
+    public long personalExpenses;
+    public long marketExpenses;
+    public long stadiumExpenses;
     public ArrayList<Player> playerList = new ArrayList<Player>();
     public Strategy strategy = new Strategy();
     public ArrayList<String> coachInterface;
@@ -38,6 +42,7 @@ public class Team {
     public boolean changeSponsor = false;
     public Tournament rfpl;
     private Random random;
+    public List<Market> markets;
 
     public Team(String info, Tournament rfpl) {
 
@@ -51,11 +56,9 @@ public class Team {
         Manager manager = new Manager(StringMass[3]);
         if(coaches.size() == 0) {coaches.add(manager);}
 
-        wealth = Double.parseDouble(StringMass[5]);
-        startWealth = Double.parseDouble(StringMass[5]);
-
-        transferExpenses = 0.0;
-        personalExpenses = 0.0;
+        wealth = Integer.parseInt(StringMass[5]) * 1_000_000;
+        startWealth = wealth;
+        markets = new ArrayList<>();
 
         addToSponsor();
 
@@ -65,24 +68,24 @@ public class Team {
 
         random = new Random();
         sponsor = rfpl.sponsorList.get(random.nextInt(16));
-        wealth += sponsor.contractBonusWage;
+        wealth += sponsor.getContractBonusWage();
         regularCapacity = capacityStad / 4;
-        System.out.println(name + " " + sponsor.name);
+        System.out.println(name + " " + sponsor.getName());
     }
 
     public void breakSponsorContract(){
-        wealth -= sponsor.contractBonusWage;
-        System.out.println("\n" + Corrector.getS(35) + "Contract with " + sponsor.name + " was broken!\n" +
-                Corrector.getS(35) + sponsor.contractBonusWage + " gived away from team budget!");
+        wealth -= sponsor.getContractBonusWage();
+        System.out.println("\n" + Corrector.getS(35) + "Contract with " + sponsor.getName() + " was broken!\n" +
+                Corrector.getS(35) + sponsor.getContractBonusWage() + " gived away from team budget!");
         sponsor = null;
 
     }
 
     public void offerSponsorContract(Sponsor sponsor) {
         this.sponsor = sponsor;
-        wealth += sponsor.contractBonusWage;
-        System.out.println("\n" + Corrector.getS(30) + "Contract with " + sponsor.name + " was offered!\n" +
-                Corrector.getS(30) + sponsor.contractBonusWage + " came into team budget!");
+        wealth += sponsor.getContractBonusWage();
+        System.out.println("\n" + Corrector.getS(30) + "Contract with " + sponsor.getName() + " was offered!\n" +
+                Corrector.getS(30) + sponsor.getContractBonusWage() + " came into team budget!");
     }
 
     public int teamCounter(){
@@ -103,5 +106,45 @@ public class Team {
         }
 
         return new String(toReturn);
+    }
+
+    public int getPoints(){
+        return wins * 3 + draws;
+    }
+
+    @Override
+    public String toString() {
+        return "Team{" +
+                "name='" + name + '\'' +
+                ", town='" + town + '\'' +
+                ", stadium=" + stadium +
+                ", games=" + games +
+                ", wins=" + wins +
+                ", draws=" + draws +
+                ", defeats=" + defeats +
+                ", goalScored=" + goalScored +
+                ", goalMissed=" + goalMissed +
+                ", teamPower=" + teamPower +
+                ", capacityStad=" + capacityStad +
+                ", temporaryTicketCost=" + temporaryTicketCost +
+                ", regularCapacity=" + regularCapacity +
+                ", coaches=" + coaches +
+                ", loans=" + loans +
+                ", wealth=" + wealth +
+                ", startWealth=" + startWealth +
+                ", transferExpenses=" + transferExpenses +
+                ", personalExpenses=" + personalExpenses +
+                ", marketExpenses=" + marketExpenses +
+                ", stadiumExpenses=" + stadiumExpenses +
+                ", playerList=" + playerList +
+                ", strategy=" + strategy +
+                ", coachInterface=" + coachInterface +
+                ", sponsor=" + sponsor +
+                ", maxValueOfLoans=" + maxValueOfLoans +
+                ", changeSponsor=" + changeSponsor +
+                ", rfpl=" + rfpl +
+                ", random=" + random +
+                ", markets=" + markets +
+                '}';
     }
 }

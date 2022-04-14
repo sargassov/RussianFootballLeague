@@ -14,7 +14,7 @@ public class CoachesSlotsTable extends Table implements Data{
         for(int x = 0, y = 0; x < 26; x++){
             if(x == 4){
                 if(rfpl.myTeam.coaches.size() > 0){
-                    String tech = rfpl.myTeam.coaches.get(y).name;
+                    String tech = rfpl.myTeam.coaches.get(y).getName();
                     tech = Corrector.wordToCenter(tech, del.length());
                     temporary.set(x, temporary.get(x).replaceAll(del, tech));
                     y++;
@@ -22,7 +22,7 @@ public class CoachesSlotsTable extends Table implements Data{
             }
             else if(x % 4 == 3 && x != 3){
                 if(rfpl.myTeam.coaches.size() > y){
-                    String tech = rfpl.myTeam.coaches.get(y).name;
+                    String tech = rfpl.myTeam.coaches.get(y).getName();
                     tech = (y + 1) + " " + tech;
                     tech = Corrector.wordToCenter(tech, del.length());
                     temporary.set(x, temporary.get(x).replaceAll(del, tech));
@@ -30,8 +30,8 @@ public class CoachesSlotsTable extends Table implements Data{
             }
             else if(x % 4 == 0 && x != 0){
                 if(rfpl.myTeam.coaches.size() > y){
-                    if(rfpl.myTeam.coaches.get(y).playerOnTrain != null){
-                        String tech = rfpl.myTeam.coaches.get(y).playerOnTrain.name;
+                    if(rfpl.myTeam.coaches.get(y).getPlayerOnTrain() != null){
+                        String tech = rfpl.myTeam.coaches.get(y).getPlayerOnTrain().name;
                         tech += getIntensity(rfpl.myTeam.coaches.get(y));
                         tech = Corrector.wordToCenter(tech, del.length());
                         temporary.set(x, temporary.get(x).replaceAll(del, tech));
@@ -44,8 +44,8 @@ public class CoachesSlotsTable extends Table implements Data{
     }
 
     private static String getIntensity(Coach c){
-        if(c.currentCoachProgram == CoachProgram.STANDART) return " S";
-        else if(c.currentCoachProgram == CoachProgram.HARD) return " H";
+        if(c.getCurrentCoachProgram() == CoachProgram.STANDART) return " S";
+        else if(c.getCurrentCoachProgram() == CoachProgram.HARD) return " H";
         else return " I";
     }
 }

@@ -59,6 +59,7 @@ public class BanksOption implements FinanceMenuOptionsInterface{
     private void howMuchYouWantToTake() {
         System.out.println(Corrector.getS(sVal) + "How many you want to take? (Between 10 and 85)\n\n\n\n");
         coeff = Corrector.inputIntMethod(absoluteMinimumLoan, absoluteMaximimLoan);
+        coeff *= 1_000_000;
 
         System.out.println(Corrector.getS(sVal) + "Possible loans for " + coeff + "M. Euro :\n\n\n");
         new BanksTable(usefulBankList, coeff).toPrint(rfpl);
@@ -75,7 +76,9 @@ public class BanksOption implements FinanceMenuOptionsInterface{
         System.out.println(Corrector.getS(sVal) + "You took too much loans. You can't take a new!\n" +
                 Corrector.getS(sVal) + "Press \"1\" To return the loan: " +
                 Corrector.getS(sVal) + "Press \"0\" to Quit: ");
-        Corrector.inputIntMethod(0, 1);
+        int select = Corrector.inputIntMethod(0, 1);
+        if(select == 1) loanReverse();
+
     }
 
     private void doYouWantToTakeLoan() {
@@ -99,13 +102,13 @@ public class BanksOption implements FinanceMenuOptionsInterface{
 
     private void loanReverse() {
         System.out.println("\n\n" + Corrector.getS(sVal) + "Choose a loan to reverse and press number of it:  " +
-                "or press 0 to quit: ");
+                Corrector.getS(sVal) + "or press 0 to quit: ");
         int choise = Corrector.inputIntMethod(0, rfpl.myTeam.loans.size());
         if(choise != 0){
             choise--;
             Bank bank = rfpl.myTeam.loans.get(choise);
 
-            if(rfpl.myTeam.wealth >= (bank.getRemainMoney() - bank.getAlreadyPaid())){
+            if(rfpl.myTeam.wealth >= (bank.getRemainMoney())){
                 rfpl.myTeam.loans.get(choise).returnLoan();
                 System.out.println(Corrector.getS(sVal) + "Now your loan was returned");
             }
@@ -138,19 +141,31 @@ public class BanksOption implements FinanceMenuOptionsInterface{
 
 
         System.out.println(Corrector.getS(sVal) + "What type of returning of loan you want to choose\n" +
-                Corrector.getS(sVal) + "Everyday for " + bank.getPerDay() + " percent, Press \"1\",\n" +
-                Corrector.getS(sVal) + "Once a week for " + bank.getPerWeek() + " percent, Press \"2\",\n" +
-                Corrector.getS(sVal) + "Once a month for " + bank.getPerMon() + " percent, Press \"3\": ");
+                Corrector.getS(sVal) + "Everyday for " + bank.getPercentDay() + " percent, Press \"1\",\n" +
+                Corrector.getS(sVal) + "Once a week for " + bank.getPercentWeek() + " percent, Press \"2\",\n" +
+                Corrector.getS(sVal) + "Once a month for " + bank.getPercentMon() + " percent, Press \"3\": ");
 
         int chooseForPeriodPay = Corrector.inputIntMethod(1, 3);
         if(chooseForPeriodPay == 1) bank.setTypeOfReturn(Bank.TypeOfReturn.PER_DAY);
         else if(chooseForPeriodPay == 2) bank.setTypeOfReturn(Bank.TypeOfReturn.PER_WEEK);
         else bank.setTypeOfReturn(Bank.TypeOfReturn.PER_MONTH);
 
-        bank.setDateOfLoan((GregorianCalendar) rfpl.currentDate);
-        bank.setRemainsDate(guessRemainsDate(bank));
+        bank.setDateOfLoan((GregorianCalendar) rfpl.currentDate.clone());
         bank.setTookMoney(coeff);
-        bank.setRemainMoney(bank.getFullVal() * bank.getTookMoney());
+        System.out.println("took money = " + bank.getTookMoney());
+        System.out.println("full val = " + bank.getFullVal());
+        bank.setRemainMoney((long) (bank.getFullVal() * coeff));
+        System.out.println("remains money = " + bank.getRemainMoney());
+        bank.setRemainsDate(guessRemainsDate(bank));
+        System.out.println(bank.getRemainsDate().get(Calendar.DAY_OF_MONTH) + "." +
+                bank.getRemainsDate().get(Calendar.MONTH) + "." +
+                bank.getRemainsDate().get(Calendar.YEAR));
+        bank.setPayPerDay((int)((bank.getRemainMoney() / 100) * bank.getPercentDay()));
+        System.out.println("per day = " + bank.getPayPerDay());
+        bank.setPayPerWeek((int)((bank.getRemainMoney() / 100) * bank.getPercentWeek()));
+        System.out.println("per week = " + bank.getPayPerWeek());
+        bank.setPayPerMonth((int)((bank.getRemainMoney() / 100) * bank.getPercentMon()));
+        System.out.println("per mon = " + bank.getPayPerMonth());
 
         System.out.println("\n"+Corrector.getS(sVal) + "Your bank loan is successful. You took " + coeff + " M.Euro");
         myTeam.wealth += coeff;
@@ -160,17 +175,18 @@ public class BanksOption implements FinanceMenuOptionsInterface{
         int timesBeforeRemain;
         Calendar finishDate = (Calendar) bank.getDateOfLoan().clone();
         if(bank.getTypeOfReturn().equals(Bank.TypeOfReturn.PER_DAY)){
-            timesBeforeRemain = (int)((bank.getFullVal() * 100) / bank.getPerDay());
+            timesBeforeRemain = (int)(bank.getRemainMoney() / (bank.getRemainMoney() / 100 * bank.getPercentDay()));
+            System.out.println(timesBeforeRemain);
             finishDate.add(Calendar.DAY_OF_MONTH, timesBeforeRemain);
             return (GregorianCalendar) finishDate;
         }
         else if(bank.getTypeOfReturn().equals(Bank.TypeOfReturn.PER_WEEK)){
-            timesBeforeRemain = (int)((bank.getFullVal() * 100) / bank.getPerWeek());
+            timesBeforeRemain = (int)(bank.getRemainMoney() / (bank.getRemainMoney() / 100 * bank.getPercentWeek()));
             finishDate.add(Calendar.DAY_OF_MONTH, (timesBeforeRemain * 7));
             return (GregorianCalendar) finishDate;
         }
         else{
-            timesBeforeRemain = (int)((bank.getFullVal() * 100) / bank.getPerMon());
+            timesBeforeRemain = (int)(bank.getRemainMoney() / (bank.getRemainMoney() / 100 * bank.getPercentMon()));
             finishDate.add(Calendar.MONTH, timesBeforeRemain);
             return (GregorianCalendar) finishDate;
         }

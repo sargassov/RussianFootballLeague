@@ -12,6 +12,9 @@ public class DayMatch extends Day {
     public Team away;
     public Stadium stadium;
     public static Tournament rfpl;
+    public int homeScore;
+    public int awayScore;
+    public boolean itWas = false;
 
     public DayMatch(){}
 
@@ -31,13 +34,15 @@ public class DayMatch extends Day {
         DayMatch.rfpl = rfpl;
     }
 
-
     @Override
-    public String toString(){
-        return date.get(Calendar.DAY_OF_MONTH) + " " + date.get(Calendar.MONTH) + " " + date.get(Calendar.YEAR) +
-                " (" + home.name + " " + away.name + ") " + stadium.getTitle();
+    public String toString() {
+        return "DayMatch{" +
+                "home=" + home.name +
+                ", away=" + away.name +
+                ", stadium=" + stadium.getTitle() +
+                ", ((" + homeScore +
+                " : " + awayScore +
+                "))" + itWas +
+                '}';
     }
-
-
-
 }
