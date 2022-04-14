@@ -9,7 +9,6 @@ import FootballManager.markets.Market;
 import FootballManager.markets.MarketPeriod;
 import FootballManager.markets.MarketType;
 
-import javax.xml.bind.SchemaOutputResolver;
 
 public class MarketOption implements StadiumMenuOptionInterface{
 
